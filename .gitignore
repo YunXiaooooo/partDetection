@@ -14,9 +14,10 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
-#modbus.dll是libmodbus所需的
-!Modbus.dll
+x64/Release/opencv_world3411.dll
+x64/Debug/opencv_world3411d.dll
+#opencv的dll超过100M
+
 
 # Fortran module files
 *.mod
