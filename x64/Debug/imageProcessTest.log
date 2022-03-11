@@ -1,0 +1,39 @@
+﻿  main.cpp
+E:\desktop\work\injectionMoldingMachine\imageProcess\imageProcessTest\main.cpp(641,9): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“unsigned __int64”
+E:\desktop\work\injectionMoldingMachine\imageProcess\imageProcessTest\main.cpp(641,9): message : 请考虑在格式字符串中使用“%zd”
+E:\desktop\work\injectionMoldingMachine\imageProcess\imageProcessTest\main.cpp(641,9): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 2 拥有了类型“unsigned __int64”
+E:\desktop\work\injectionMoldingMachine\imageProcess\imageProcessTest\main.cpp(641,9): message : 请考虑在格式字符串中使用“%zd”
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\utility(193,54): warning C4244: “初始化”: 从“double”转换到“_Ty2”，可能丢失数据
+          with
+          [
+              _Ty2=int
+          ]
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xmemory(707): message : 查看对正在编译的函数 模板 实例化“std::pair<int,int>::pair<int&,double&,0>(_Other1,_Other2) noexcept”的引用
+          with
+          [
+              _Other1=int &,
+              _Other2=double &
+          ]
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\xmemory(714): message : 查看对正在编译的函数 模板 实例化“std::pair<int,int>::pair<int&,double&,0>(_Other1,_Other2) noexcept”的引用
+          with
+          [
+              _Other1=int &,
+              _Other2=double &
+          ]
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(721): message : 查看对正在编译的函数 模板 实例化“void std::_Default_allocator_traits<_Alloc>::construct<_Ty,int&,double&>(_Alloc &,_Objty *const ,int &,double &)”的引用
+          with
+          [
+              _Alloc=std::allocator<std::pair<int,int>>,
+              _Ty=std::pair<int,int>,
+              _Objty=std::pair<int,int>
+          ]
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(726): message : 查看对正在编译的函数 模板 实例化“void std::_Default_allocator_traits<_Alloc>::construct<_Ty,int&,double&>(_Alloc &,_Objty *const ,int &,double &)”的引用
+          with
+          [
+              _Alloc=std::allocator<std::pair<int,int>>,
+              _Ty=std::pair<int,int>,
+              _Objty=std::pair<int,int>
+          ]
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vector(739): message : 查看对正在编译的函数 模板 实例化“void std::vector<std::pair<int,int>,std::allocator<std::pair<int,int>>>::_Emplace_back_with_unused_capacity<int&,double&>(int &,double &)”的引用
+E:\desktop\work\injectionMoldingMachine\imageProcess\imageProcessTest\main.cpp(158): message : 查看对正在编译的函数 模板 实例化“void std::vector<std::pair<int,int>,std::allocator<std::pair<int,int>>>::emplace_back<int&,double&>(int &,double &)”的引用
+  imageProcessTest.vcxproj -> E:\desktop\work\injectionMoldingMachine\imageProcess\imageProcessTest\x64\Debug\imageProcessTest.exe
