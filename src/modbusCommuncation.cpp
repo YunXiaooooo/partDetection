@@ -2,7 +2,6 @@
 
 bool modbusRtuMaster::modbusRtuMasterInit(int addr2)
 {
-	md_rtu = modbus_new_rtu(comName.c_str(), baud, parity, dataBit, stopBit);   //相同的端口只能同时打开一个 
 
 	if (modbus_connect(md_rtu) != 0)
 	{

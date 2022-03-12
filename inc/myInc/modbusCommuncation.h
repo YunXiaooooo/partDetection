@@ -11,7 +11,7 @@ public:
     modbusRtuMaster(int _id, std::string _comName, int _baud, char _parity, int _dataBit, int _stopBit):id(_id), comName(_comName), baud(_baud),
         parity(_parity), dataBit(_dataBit), stopBit(_stopBit)
     {
-       
+        md_rtu = modbus_new_rtu(comName.c_str(), baud, parity, dataBit, stopBit);   //相同的端口只能同时打开一个 析构函数中释放，所以写在构造函数中。使用前需要向init
     }
 
     modbusRtuMaster(const modbusRtuMaster& md_rtu) = delete;
