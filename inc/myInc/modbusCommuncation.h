@@ -18,6 +18,7 @@ public:
 
     ~modbusRtuMaster()
     {
+        printf("modbusRtuMaster Îö¹¹ \n");
         modbus_free(md_rtu);
     }
     bool modbusRtuMasterInit(int addr2);

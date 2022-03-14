@@ -2,6 +2,7 @@
 #define _COMMON_H_
 
 #include <thread>
+#include <memory>
 #include <mutex>
 #include <condition_variable>  
 #include <opencv2/core.hpp>
@@ -105,7 +106,7 @@ private:
 
 
 int DisplayConfirmSaveAsMessageBox();
-void grabByHk(CameraDrive* ptrMyCameras);
+void grabByHk(std::unique_ptr<CameraDrive> ptrMyCameras);
 
 extern resultCodes testResults;
 extern conditionVariableTool cdTool;

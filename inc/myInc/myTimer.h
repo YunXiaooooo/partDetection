@@ -19,6 +19,7 @@ public:
 
     ~myTimer()
     {
+        printf("myTimerÎö¹¹ \n");
         stop();
     }
 

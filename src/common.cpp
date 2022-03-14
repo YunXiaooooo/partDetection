@@ -29,7 +29,7 @@ int DisplayConfirmSaveAsMessageBox()
 
 
 
-void grabByHk(CameraDrive* ptrMyCameras)
+void grabByHk(std::unique_ptr<CameraDrive> ptrMyCameras)
 {
     int grabNum = 0;
     cv::Mat originImage[4];
