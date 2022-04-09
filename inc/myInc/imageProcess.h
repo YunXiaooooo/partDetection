@@ -3,6 +3,6 @@
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 
-std::vector<int> imageProcessFor12(cv::Mat src, int grabNu);
-unsigned int imageProcessTask(cv::Mat src, int grabNu);
+void imageProcessFor12(cv::Mat src, int grabNum, std::vector<int>& result);
+std::vector<int> imageProcessTask(cv::Mat src, int grabNum);
 #endif

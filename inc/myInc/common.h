@@ -9,44 +9,50 @@
 #include <opencv2/highgui.hpp>
 #include "CameraDrive.h"
 
-class resultCodes
+class palletRecognitionResults
 {
 public:
-	resultCodes()
+	palletRecognitionResults()
 	{
-		for (int i = 0; i < 4; i++)
+		states.resize(4);
+		for (auto s : states)
 		{
-			code[i] = 0;
+			s.resize(12);
 		}
 		flag = false;
 	}
-	~resultCodes()
+	~palletRecognitionResults()
 	{
 	}
-	void setCodeValue(int num, int value)
+	void setStatesAboutOneGrabPic(int num, std::vector<int> stateValue)
 	{
 		std::lock_guard<std::mutex> lk(mut);
-		code[num] = value;
+		states[num] = stateValue;
 	}
 	void setFlag(bool tf)
 	{
-		std::lock_guard<std::mutex> lk(mut);
 		flag = tf;
 	}
 	bool readFlag()
 	{
-		std::lock_guard<std::mutex> lk(mut);
 		return flag;
 	}
-	unsigned int readCodeValue(int num)
+	std::vector<int> readStatesAboutOneGrabPic(int num)
 	{
 		std::lock_guard<std::mutex> lk(mut);
-		return code[num];
+		return states[num];
+	}
+	int readStatesAboutOneLocation(int num)
+	{
+		int picNum = num / 12;
+		int locationInPic = num % 12;
+		std::lock_guard<std::mutex> lk(mut);
+		return states[picNum][locationInPic];
 	}
 private:
 	std::mutex mut;
-	unsigned int code[4];
-	bool flag;
+	std::vector<std::vector<int>> states;
+	std::atomic_bool flag;
 };
 
 class conditionVariableTool
@@ -55,6 +61,7 @@ public:
 	conditionVariableTool()
 	{
 		grabFlag = false;
+		grabFinishedFlag = false;
 		terminnationFlag = false;
 	}
 	~conditionVariableTool()
@@ -64,12 +71,14 @@ public:
 
 	void setGrabFlag(bool tf)
 	{
-		std::lock_guard<std::mutex> lk(mut);
 		grabFlag = tf;
+	}
+	void setgrabFinishedFlag(bool tf)
+	{
+		grabFinishedFlag = tf;
 	}
 	void setTerminnationFlag(bool tf)
 	{
-		std::lock_guard<std::mutex> lk(mut);
 		terminnationFlag = tf;
 	}
 	void conditionVariableToolWait()
@@ -87,19 +96,21 @@ public:
 	}
 	bool readGrabFlag()
 	{
-		std::lock_guard<std::mutex> lk(mut);
 		return grabFlag;
 	}
 	bool readTerminnationFlag()
 	{
-		std::lock_guard<std::mutex> lk(mut);
 		return terminnationFlag;
+	}
+	bool readGrabFinishedFlag()
+	{
+		return grabFinishedFlag;
 	}
 private:
 	std::mutex mut;
 	std::condition_variable cond;
-	bool grabFlag;
-	bool terminnationFlag;
+	std::atomic_bool grabFlag,grabFinishedFlag;
+	std::atomic_bool terminnationFlag;
 
 
 };
@@ -108,6 +119,6 @@ private:
 int DisplayConfirmSaveAsMessageBox();
 void grabByHk(std::unique_ptr<CameraDrive> ptrMyCameras);
 
-extern resultCodes testResults;
+extern palletRecognitionResults palletRecognitionStates;
 extern conditionVariableTool cdTool;
 #endif 

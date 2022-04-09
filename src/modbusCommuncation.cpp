@@ -1,6 +1,6 @@
 #include "modbusCommuncation.h"
 
-bool modbusRtuMaster::modbusRtuMasterInit(int addr2)
+bool modbusRtuMaster::modbusRtuMasterInit()
 {
 
 	if (modbus_connect(md_rtu) != 0)
@@ -15,9 +15,9 @@ bool modbusRtuMaster::modbusRtuMasterInit(int addr2)
 	modbus_set_response_timeout(md_rtu, (int)&t.tv_sec, (int)&t.tv_usec);
 
 	//回环测试连接是否成功
-	modbus_write_register(md_rtu, addr2, 1222);
+	modbus_write_register(md_rtu, testAddr, 1222);
 	uint16_t* tab_reg = (uint16_t*)malloc(1 * sizeof(uint16_t));
-	modbus_read_registers(md_rtu, addr2, 1, tab_reg);
+	modbus_read_registers(md_rtu, testAddr, 1, tab_reg);
 	if (tab_reg[0] == 1222)
 	{
 		free(tab_reg);

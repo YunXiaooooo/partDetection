@@ -1,10 +1,3 @@
-﻿  modbusCommuncation.cpp
-E:\desktop\work\injectionMoldingMachine\inspection2022-2-17\inspection\src\modbusCommuncation.cpp(12,52): warning C4311: “类型强制转换”: 从“long *”到“int”的指针截断
-E:\desktop\work\injectionMoldingMachine\inspection2022-2-17\inspection\src\modbusCommuncation.cpp(12,52): warning C4302: “类型强制转换”: 从“long *”到“int”截断
-E:\desktop\work\injectionMoldingMachine\inspection2022-2-17\inspection\src\modbusCommuncation.cpp(12,69): warning C4311: “类型强制转换”: 从“long *”到“int”的指针截断
-E:\desktop\work\injectionMoldingMachine\inspection2022-2-17\inspection\src\modbusCommuncation.cpp(12,69): warning C4302: “类型强制转换”: 从“long *”到“int”截断
-E:\desktop\work\injectionMoldingMachine\inspection2022-2-17\inspection\src\modbusCommuncation.cpp(32,52): warning C4311: “类型强制转换”: 从“long *”到“int”的指针截断
-E:\desktop\work\injectionMoldingMachine\inspection2022-2-17\inspection\src\modbusCommuncation.cpp(32,52): warning C4302: “类型强制转换”: 从“long *”到“int”截断
-E:\desktop\work\injectionMoldingMachine\inspection2022-2-17\inspection\src\modbusCommuncation.cpp(32,69): warning C4311: “类型强制转换”: 从“long *”到“int”的指针截断
-E:\desktop\work\injectionMoldingMachine\inspection2022-2-17\inspection\src\modbusCommuncation.cpp(32,69): warning C4302: “类型强制转换”: 从“long *”到“int”截断
-  inspection.vcxproj -> E:\desktop\work\injectionMoldingMachine\inspection2022-2-17\inspection\x64\Debug\inspection.exe
+﻿  imageProcess.cpp
+E:\desktop\work\injectionMoldingMachine\inspection2022-2-26\inspection\src\imageProcess.cpp(55,2): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  inspection.vcxproj -> E:\desktop\work\injectionMoldingMachine\inspection2022-2-26\inspection\x64\Debug\inspection.exe

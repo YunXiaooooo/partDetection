@@ -1,6 +1,6 @@
 #include "imageProcess.h"
 #include "common.h"
-std::vector<int> imageProcessFor12(cv::Mat src, int grabNum)//´«ÈëgrabNum·½±ãµ÷ÊÔ²é¿´ÄÄ¸±Í¼Æ¬³ö´í
+void imageProcessFor12(cv::Mat src, int grabNum, std::vector<int>& result)//´«ÈëgrabNum·½±ãµ÷ÊÔ²é¿´ÄÄ¸±Í¼Æ¬³ö´í
 {
 	/*Í¼Ïñ´¦Àí
 		1/4ÍĞÅÌÒ»¹²12¸öÁã¼ş°´ÒÔÏÂ±êºÅ
@@ -9,9 +9,9 @@ std::vector<int> imageProcessFor12(cv::Mat src, int grabNum)//´«ÈëgrabNum·½±ãµ÷Ê
 		4    5   6    7
 		8    9   10   11
 
-		½«·½Ïò²»ÕıÈ·µÄÁã¼ş±êºÅ¼ÓÈëvector<int> result ÄÚ·µ»Ø¡£
+		vector<int> result¹æÄ£Îª12£¬½«Ã¿¸öÎ»ÖÃµÄÁã¼ş×´Ì¬´æÈë:
+			1±íÊ¾Õı³££»2±íÊ¾·½ÏòÏà·´£»3±íÊ¾¿Õ£¬Ã»ÓĞÁã¼ş
 	*/
-	std::vector<int> result;
 	clock_t start = clock();	
 	cv::imwrite("src"+std::to_string(grabNum)+".jpg", src);
 
@@ -21,10 +21,13 @@ std::vector<int> imageProcessFor12(cv::Mat src, int grabNum)//´«ÈëgrabNum·½±ãµ÷Ê
 
 	clock_t ends = clock();
 	printf("imageProcess Running Time = %f \n", ((double)(ends) - start) / CLOCKS_PER_SEC);
-	result.push_back(2+ grabNum);
-	result.push_back(3+ grabNum);
-	result.push_back(8+ grabNum);
-	return result;
+	for (auto &r : result)
+	{
+		static int c = 0;
+		c++;
+		c = (c > 3) ? 0 : c;
+		r = c;
+	}
 }
 
 //void imageProcessTask(cv::Mat src, int grabNum)
@@ -42,18 +45,16 @@ std::vector<int> imageProcessFor12(cv::Mat src, int grabNum)//´«ÈëgrabNum·½±ãµ÷Ê
 //	printf("image num = %d, resultCode = 0x%x = %d \n", grabNum, tempResultCode, tempResultCode);
 //	resultCode[grabNum].setCodeValue(tempResultCode);
 //}
-unsigned int imageProcessTask(cv::Mat src, int grabNum)
+std::vector<int> imageProcessTask(cv::Mat src, int grabNum)
 {
 	cv::Mat srcClone = src.clone();
-	std::vector<int> DirectionRecognitionResult;
-	DirectionRecognitionResult = imageProcessFor12(srcClone, grabNum);
+	std::vector<int> DirectionRecognitionResult(12);
+	imageProcessFor12(srcClone, grabNum, DirectionRecognitionResult);
 
 
-	unsigned int tempResultCode = 0;
-	for (auto r : DirectionRecognitionResult)
+	for (int i=0,len= DirectionRecognitionResult.size();i<len;i++)
 	{
-		tempResultCode = tempResultCode | (1 << r);
+		printf("image num = %d, location = %d , state = %d\n", grabNum, i+ grabNum*12, DirectionRecognitionResult[i]);
 	}
-	printf("image num = %d, resultCode = 0x%x = %d \n", grabNum, tempResultCode, tempResultCode);
-	return tempResultCode;
+	return DirectionRecognitionResult;
 }

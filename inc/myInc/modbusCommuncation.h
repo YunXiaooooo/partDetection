@@ -21,7 +21,7 @@ public:
         printf("modbusRtuMaster 析构 \n");
         modbus_free(md_rtu);
     }
-    bool modbusRtuMasterInit(int addr2);
+    bool modbusRtuMasterInit();
     void modbus_rtu_read(int addr2, int num);
     void modbus_rtu_write(int addr2, int value);
     void modbus_rtu_write_continue(int addr2, int nb, const uint16_t* src);
@@ -41,7 +41,7 @@ private:
     int dataBit;
     int stopBit;
     std::vector<unsigned short> readData;
-
+    int testAddr = 66;//回环测试地址，使用与PLC约定的地址以为的地址
 };
 
 #endif //

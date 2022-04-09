@@ -21,7 +21,7 @@ int main()
     std::unique_ptr<myTimer> communcationTimer(new myTimer);
 
     std::unique_ptr<modbusRtuMaster> mbMaster(new modbusRtuMaster(1, "COM1", 9600, 'N', 8, 1));
-    if (!mbMaster->modbusRtuMasterInit(0))//传入测试地址,测试是否正常连接
+    if (!mbMaster->modbusRtuMasterInit())//传入测试地址,测试是否正常连接
     {
         printf("modbus未连接，程序即将关闭！\n");
         cdTool.setTerminnationFlag(true);
