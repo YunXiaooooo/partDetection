@@ -3,7 +3,7 @@
 #include "common.h"
 #include "imageProcess.h"
 #include "CameraDrive.h"
-
+#include "ThreadPool.h"
 
 #include <windows.h> //windows.h必须晚于modbus.h 不然会报错不知道为什么
 
@@ -33,7 +33,8 @@ void grabByHk(std::unique_ptr<CameraDrive> ptrMyCameras)
 {
     int grabNum = 0;
     cv::Mat originImage[4];
-    std::vector<std::future < std::vector<int> >> futs;
+    ThreadPool pool(4);
+    std::queue < std::future<std::vector<int>>> futs;
     while (1)
     {
         cdTool.conditionVariableToolWait();
@@ -41,8 +42,10 @@ void grabByHk(std::unique_ptr<CameraDrive> ptrMyCameras)
         if (cdTool.readTerminnationFlag() == true)
         {   
             cdTool.setTerminnationFlag(false);
-            for (auto& fut : futs)
+            while(!futs.empty())
             {
+                std::future<std::vector<int>> fut = std::move(futs.front());
+                futs.pop();
                 fut.get();
             }
             printf("抓拍线程退出\n");
@@ -53,7 +56,7 @@ void grabByHk(std::unique_ptr<CameraDrive> ptrMyCameras)
             originImage[grabNum] = ptrMyCameras->grabForSoftTriggerMode(0);//传入0是因为仅有一个相机
             cdTool.setGrabFlag(false);
             cdTool.setgrabFinishedFlag(true);
-            futs.push_back(std::async(imageProcessTask, originImage[grabNum], grabNum));
+            futs.push(pool.enqueue(imageProcessTask, originImage[grabNum], grabNum));
             printf("图片[%d]加入处理线程\n", grabNum);
             grabNum++;
 
@@ -62,9 +65,10 @@ void grabByHk(std::unique_ptr<CameraDrive> ptrMyCameras)
                 grabNum = 0;
                 for (int i=0;i<4;i++)
                 {
-                    palletRecognitionStates.setStatesAboutOneGrabPic(i, futs[i].get());
+                    std::future<std::vector<int>> fut = std::move(futs.front());
+                    futs.pop();
+                    palletRecognitionStates.setStatesAboutOneGrabPic(i, fut.get());
                 }
-                futs.clear();
                 //四幅图像处理完毕，准备发送结果
                 printf("四幅图像处理完毕，准备发送结果\n");
                 palletRecognitionStates.setFlag(true);

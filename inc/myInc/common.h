@@ -9,6 +9,7 @@
 #include <opencv2/highgui.hpp>
 #include "CameraDrive.h"
 
+
 class palletRecognitionResults
 {
 public:

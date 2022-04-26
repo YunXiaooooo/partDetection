@@ -84,7 +84,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>.\inc\opencvInc;.\inc\libmodbusInc;.\inc\hikrobotInc;.\inc\myInc;$(IncludePath)</IncludePath>
+    <IncludePath>.\inc\threadpoolInc;.\inc\opencvInc;.\inc\libmodbusInc;.\inc\hikrobotInc;.\inc\myInc;$(IncludePath)</IncludePath>
     <LibraryPath>.\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -136,6 +136,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <EnableModules>false</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,6 +161,7 @@
     <ClInclude Include="inc\myInc\imageProcess.h" />
     <ClInclude Include="inc\myInc\modbusCommuncation.h" />
     <ClInclude Include="inc\myInc\myTimer.h" />
+    <ClInclude Include="inc\threadpoolInc\ThreadPool.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

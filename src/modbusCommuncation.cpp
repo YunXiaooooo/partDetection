@@ -2,10 +2,10 @@
 
 bool modbusRtuMaster::modbusRtuMasterInit()
 {
-
-	if (modbus_connect(md_rtu) != 0)
+	int state = modbus_connect(md_rtu);
+	if (state != 0)
 	{
-		printf("modbus can not connect! \n");
+		printf("modbus can not connect! [%d]\n", state);
 		return false;
 	}
 	modbus_set_slave(md_rtu, id);  //设置modbus从机地址 

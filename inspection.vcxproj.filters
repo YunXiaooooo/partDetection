@@ -47,5 +47,8 @@
     <ClInclude Include="inc\myInc\imageProcess.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="inc\threadpoolInc\ThreadPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
