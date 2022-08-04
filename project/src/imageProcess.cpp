@@ -14,7 +14,7 @@ void imageProcess::realImageProcess(cv::Mat& src, const int grabNum, std::vector
 			1表示正常；2表示方向相反；3表示空，没有零件; 4表示零件异常（触头间距不对或其他问题）
 	*/
 	clock_t start = clock();
-
+	result.clear();
 	result.resize(4, 4); // 默认异常零件，检测到了才给其他状态
 
 	imagePerspective(src, grabNum);//矫正
@@ -28,6 +28,7 @@ void imageProcess::realImageProcess(cv::Mat& src, const int grabNum, std::vector
 	printf("OTSU_threadValue: %f \n", OTSU_threadNum);
 	if (OTSU_threadNum < OTSU_threadNumMin)//阈值过小，12孔位全部没有零件
 	{
+		result.clear();
 		result.resize(4, 3);
 		return;
 	}
