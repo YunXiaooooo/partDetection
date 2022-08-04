@@ -1,1 +1,2 @@
 E:\desktop\work\injectionMoldingMachine\imageProcess\imageProcessTest\x64\Debug\imageProcessTest.exe
+E:\desktop\work\inspection\imageProcess\x64\Debug\imageProcessTest.exe

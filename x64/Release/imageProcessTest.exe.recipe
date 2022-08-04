@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>E:\desktop\work\injectionMoldingMachine\imageProcess\imageProcessTest\x64\Release\imageProcessTest.exe</FullPath>
+      <FullPath>E:\desktop\work\inspection\imageProcess\x64\Release\imageProcessTest.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
