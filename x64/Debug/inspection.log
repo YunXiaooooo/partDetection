@@ -1,3 +1,0 @@
-﻿  imageProcess.cpp
-E:\desktop\work\injectionMoldingMachine\inspection2022-2-26\inspection\src\imageProcess.cpp(55,2): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-  inspection.vcxproj -> E:\desktop\work\injectionMoldingMachine\inspection2022-2-26\inspection\x64\Debug\inspection.exe
