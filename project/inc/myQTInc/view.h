@@ -39,6 +39,7 @@ public slots:
     void imageDisplay(int indx);
     void grab(int grabNum);
     void prepareToReply();
+    void Change();
 
 signals:
     void oneImageDispaly(int);

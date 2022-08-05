@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_view_t {
-    QByteArrayData data[14];
-    char stringdata0[133];
+    QByteArrayData data[15];
+    char stringdata0[140];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -44,13 +44,14 @@ QT_MOC_LITERAL(9, 87, 12), // "imageDisplay"
 QT_MOC_LITERAL(10, 100, 4), // "indx"
 QT_MOC_LITERAL(11, 105, 4), // "grab"
 QT_MOC_LITERAL(12, 110, 7), // "grabNum"
-QT_MOC_LITERAL(13, 118, 14) // "prepareToReply"
+QT_MOC_LITERAL(13, 118, 14), // "prepareToReply"
+QT_MOC_LITERAL(14, 133, 6) // "Change"
 
     },
     "view\0oneImageDispaly\0\0oneImageProcess\0"
     "cv::Mat&\0img\0num\0readyToReply\0"
     "pushButtonGetImage\0imageDisplay\0indx\0"
-    "grab\0grabNum\0prepareToReply"
+    "grab\0grabNum\0prepareToReply\0Change"
 };
 #undef QT_MOC_LITERAL
 
@@ -60,7 +61,7 @@ static const uint qt_meta_data_view[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -68,15 +69,16 @@ static const uint qt_meta_data_view[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   49,    2, 0x06 /* Public */,
-       3,    2,   52,    2, 0x06 /* Public */,
-       7,    0,   57,    2, 0x06 /* Public */,
+       1,    1,   54,    2, 0x06 /* Public */,
+       3,    2,   57,    2, 0x06 /* Public */,
+       7,    0,   62,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       8,    0,   58,    2, 0x0a /* Public */,
-       9,    1,   59,    2, 0x0a /* Public */,
-      11,    1,   62,    2, 0x0a /* Public */,
-      13,    0,   65,    2, 0x0a /* Public */,
+       8,    0,   63,    2, 0x0a /* Public */,
+       9,    1,   64,    2, 0x0a /* Public */,
+      11,    1,   67,    2, 0x0a /* Public */,
+      13,    0,   70,    2, 0x0a /* Public */,
+      14,    0,   71,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    2,
@@ -87,6 +89,7 @@ static const uint qt_meta_data_view[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   10,
     QMetaType::Void, QMetaType::Int,   12,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -105,6 +108,7 @@ void view::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         case 4: _t->imageDisplay((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 5: _t->grab((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 6: _t->prepareToReply(); break;
+        case 7: _t->Change(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -162,13 +166,13 @@ int view::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

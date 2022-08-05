@@ -1,3 +1,34 @@
-﻿  communication.cpp
+﻿  CameraDrive.cpp
+  communication.cpp
+  imageProcess.cpp
+  main.cpp
+  myTimer.cpp
+E:\desktop\work\inspection\main\project\src\imageProcess.cpp(334,11): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+E:\desktop\work\inspection\main\project\src\imageProcess.cpp(334,11): message : 请考虑在格式字符串中使用“%zd”
+E:\desktop\work\inspection\main\project\src\imageProcess.cpp(811,10): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+E:\desktop\work\inspection\main\project\src\imageProcess.cpp(811,10): message : 请考虑在格式字符串中使用“%zd”
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\utility(242,61): warning C4244: “初始化”: 从“_Ty”转换到“_Ty2”，可能丢失数据
+          with
+          [
+              _Ty=unsigned __int64
+          ]
+          and
+          [
+              _Ty2=int
+          ] (编译源文件 src\imageProcess.cpp)
+E:\desktop\work\inspection\main\project\src\imageProcess.cpp(292): message : 查看对正在编译的函数 模板 实例化“std::pair<double,int>::pair<double,unsigned __int64,0>(std::pair<double,unsigned __int64> &&) noexcept”的引用
+E:\desktop\work\inspection\main\project\src\imageProcess.cpp(292): message : 查看对正在编译的函数 模板 实例化“std::pair<double,int>::pair<double,unsigned __int64,0>(std::pair<double,unsigned __int64> &&) noexcept”的引用
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\utility(312,39): warning C4244: “=”: 从“_Ty”转换到“_Ty2”，可能丢失数据
+          with
+          [
+              _Ty=unsigned __int64
+          ]
+          and
+          [
+              _Ty2=int
+          ] (编译源文件 src\imageProcess.cpp)
+E:\desktop\work\inspection\main\project\src\imageProcess.cpp(775): message : 查看对正在编译的函数 模板 实例化“std::pair<double,int> &std::pair<double,int>::operator =<double,unsigned __int64,0>(std::pair<double,unsigned __int64> &&) noexcept”的引用
+E:\desktop\work\inspection\main\project\src\imageProcess.cpp(775): message : 查看对正在编译的函数 模板 实例化“std::pair<double,int> &std::pair<double,int>::operator =<double,unsigned __int64,0>(std::pair<double,unsigned __int64> &&) noexcept”的引用
+E:\desktop\work\inspection\main\project\src\main.cpp(4,10): fatal error C1083: 无法打开包括文件: “et199_64.h”: No such file or directory
+  processControl.cpp
   view.cpp
-  project.vcxproj -> E:\desktop\work\inspection\project\x64\Debug\project.exe

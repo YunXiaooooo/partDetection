@@ -94,7 +94,7 @@ public:
 
     communicationToolProxy(const communicationToolProxy&) = delete;
     communicationToolProxy& operator=(const communicationToolProxy&) = delete;
-
+    void ChangeAllResultSetOne();
     int ReceiveGrabSignal();
     void sendGrabFinishedSignal(const int num);
     void setTestResults(std::vector<std::vector<int>>& data);
@@ -118,6 +118,7 @@ private:
     std::array<std::atomic_bool, 12> clearFinishedFlags{ false};
     std::atomic_bool testCompeleteFlag = false;
     std::atomic_bool isTaskRun = false;
+    std::atomic_bool AllResultSetOne = false;
 signals:
     void toGrab(int);
 

@@ -182,14 +182,26 @@ void communicationToolProxy::clearGrabFinishedSignal(const int num)
 void communicationToolProxy::setTestResults(std::vector<std::vector<int>>& data)
 {
 	assert(data.size() == 12);
-	for (int i = 0; i < 12; ++i)
+	if (AllResultSetOne)
 	{
-		assert(data[i].size() == 4);
-		for (int j = 0; j < 4; ++j)
+		for (int i = 0; i < 12; ++i)
 		{
-			testResults[i * 4 + j] = static_cast<uint16_t>(data[i][j]);
-			//testResults[i * 4 + j] = static_cast<uint16_t>(i * 4 + j);
-
+			assert(data[i].size() == 4);
+			for (int j = 0; j < 4; ++j)
+			{
+				testResults[i * 4 + j] = 1;
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < 12; ++i)
+		{
+			assert(data[i].size() == 4);
+			for (int j = 0; j < 4; ++j)
+			{
+				testResults[i * 4 + j] = static_cast<uint16_t>(data[i][j]);
+			}
 		}
 	}
 }
@@ -237,4 +249,9 @@ void communicationToolProxy::task()
 		testCompeleteFlag = false;
 	}
 	isTaskRun = false;
+}
+
+void communicationToolProxy::ChangeAllResultSetOne()
+{
+	AllResultSetOne = !AllResultSetOne;
 }

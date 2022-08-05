@@ -8,6 +8,7 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include <math.h>
 #include <algorithm>
+#include <mutex>
 struct boxCoordinates
 {
 	int startRows;
@@ -46,6 +47,10 @@ private:
 	float lengthCompareWidth = 3.0;
 	std::array<cv::Point2f, 4> baseD{ cv::Point2f(327,141),cv::Point2f(305,586), cv::Point2f(326,796), cv::Point2f(307,1236) };
 	std::array<cv::Point2f, 2> singleBaseD{ cv::Point2f(341,117),cv::Point2f(342,512) };
+	std::mutex mut;
+	std::array<cv::Point2f, 4> threadBaseD{ cv::Point2f(327,141),cv::Point2f(305,586), cv::Point2f(326,796), cv::Point2f(307,1236) };
+	std::array<cv::Point2f, 2> threadSingleBaseD{ cv::Point2f(341,117),cv::Point2f(342,512) };
+
 
 	double judgementDeadValue = 0;
 
@@ -76,6 +81,7 @@ private:
 	int nearestD(const cv::Point2i& p, double& minValue);
 	int nearestSingleD(const cv::Point2i& p, double& minValue);
 	void baseDInit();
+	void setThreadBaseD();
 
 };
 

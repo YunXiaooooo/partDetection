@@ -16,7 +16,7 @@ void imageProcess::realImageProcess(cv::Mat& src, const int grabNum, std::vector
 	clock_t start = clock();
 	result.clear();
 	result.resize(4, 4); // 默认异常零件，检测到了才给其他状态
-
+	setThreadBaseD();
 	imagePerspective(src, grabNum);//矫正
 	//saveImage("src" + std::to_string(grabNum) + ".jpg", src);//保存原图方便debug
 	//showImage("src", src, 0, true);
@@ -172,7 +172,9 @@ std::vector<int> imageProcess::imageProcessTask(cv::Mat& src, const int grabNum)
 {
 	cv::Mat srcClone;
 	if (src.channels() != 1)
+	{
 		cv::cvtColor(src, srcClone, CV_BGR2GRAY);
+	}
 	else
 	{
 		srcClone = src.clone(); //避免修改原图
@@ -185,7 +187,7 @@ std::vector<int> imageProcess::imageProcessTask(cv::Mat& src, const int grabNum)
 	}
 	catch (std::exception& e)
 	{
-		printf("图片【%d】处理异常 \n", grabNum);
+		printf("图片【%d】处理异常:%s \n", grabNum, e.what());
 		DirectionRecognitionResult.clear();
 		DirectionRecognitionResult.resize(4, 4);
 	}
@@ -319,16 +321,20 @@ void imageProcess::getTwoContactDHoleCoordinates(const cv::Mat& image, std::vect
 		{
 			if (DScoreAndPoint[i].size() == 0)
 			{
-				DCoordinates[i] = singleBaseD[i];
+				DCoordinates[i] = threadSingleBaseD[i];
 				continue;
 			}
 			std::sort(DScoreAndPoint[i].begin(), DScoreAndPoint[i].end(), [&](auto d1, auto d2) {return d1.first < d2.first; });//升序
 			DCoordinates[i] = DScoreAndPoint[i][0].second;
 			//迭代更新基准坐标
-			cv::Point2f temp = singleBaseD[i];
+			cv::Point2f temp = threadSingleBaseD[i];
 			temp.x = temp.x * 0.9 + DCoordinates[i].x * 0.1;
 			temp.y = temp.y * 0.9 + DCoordinates[i].y * 0.1;
-			singleBaseD[i] = temp;
+			threadSingleBaseD[i] = temp;
+			{
+				std::lock_guard lock(mut);
+				singleBaseD[i] = threadSingleBaseD[i];
+			}
 			printf("New singleBaseD[%d] :x=%f, y=%f \n", i, temp.x, temp.y);
 		}
 	}
@@ -796,16 +802,20 @@ void imageProcess::getFourContactDHoleCoordinates(const cv::Mat& image, std::vec
 	{
 		if (DScoreAndPoint[i].size() == 0)
 		{
-			DCoordinates[i] = baseD[i];
+			DCoordinates[i] = threadBaseD[i];
 			continue;
 		}
 		std::sort(DScoreAndPoint[i].begin(), DScoreAndPoint[i].end(), [&](auto d1, auto d2) {return d1.first < d2.first; });//升序
 		DCoordinates[i] = DScoreAndPoint[i][0].second;
 		//迭代更新基准坐标
-		cv::Point2f temp = baseD[i];
+		cv::Point2f temp = threadBaseD[i];
 		temp.x = temp.x * 0.9 + DCoordinates[i].x * 0.1;
 		temp.y = temp.y * 0.9 + DCoordinates[i].y * 0.1;
-		baseD[i] = temp;
+		threadBaseD[i] = temp;
+		{
+			std::lock_guard lock(mut);
+			baseD[i] = threadBaseD[i];
+		}
 		printf("New baseD[%d] :x=%f, y=%f \n", i, temp.x, temp.y);
 	}
 }
@@ -935,11 +945,11 @@ void imageProcess::sharpenImage1(const cv::Mat& image, cv::Mat& result)
 
 int imageProcess::nearestD(const cv::Point2i& p, double& minValue)
 {
-	minValue = getDistance(p, baseD[0]);
+	minValue = getDistance(p, threadBaseD[0]);
 	int indx = 0;
 	for (int i = 1; i < 4; ++i)
 	{
-		double value = getDistance(p, baseD[i]);
+		double value = getDistance(p, threadBaseD[i]);
 		if (minValue > value)
 		{
 			minValue = value;
@@ -950,11 +960,11 @@ int imageProcess::nearestD(const cv::Point2i& p, double& minValue)
 }
 int imageProcess::nearestSingleD(const cv::Point2i& p, double& minValue)
 {
-	minValue = getDistance(p, singleBaseD[0]);
+	minValue = getDistance(p, threadSingleBaseD[0]);
 	int indx = 0;
 	for (int i = 1; i < 2; ++i)
 	{
-		double value = getDistance(p, singleBaseD[i]);
+		double value = getDistance(p, threadSingleBaseD[i]);
 		if (minValue > value)
 		{
 			minValue = value;
@@ -967,6 +977,7 @@ int imageProcess::nearestSingleD(const cv::Point2i& p, double& minValue)
 
 void imageProcess::baseDInit()
 {
+	std::lock_guard lock(mut);
 	try
 	{
 		std::ifstream baseDTXT;
@@ -1014,6 +1025,7 @@ void imageProcess::baseDInit()
 
 void imageProcess::baseDSave()
 {
+	std::lock_guard lock(mut);
 	try
 	{
 		std::ofstream  baseDTXT;
@@ -1045,4 +1057,11 @@ void imageProcess::baseDSave()
 	{
 		printf("baseDSave failure \n");
 	}
+}
+void imageProcess::setThreadBaseD()
+{
+	std::lock_guard<std::mutex> lock(mut);
+	threadBaseD = baseD;
+	singleBaseD = threadSingleBaseD;
+
 }

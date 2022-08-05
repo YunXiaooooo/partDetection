@@ -50,6 +50,7 @@ public:
     QSpacerItem *horizontalSpacer;
     QLabel *label_1;
     QLabel *label_6;
+    QPushButton *pushButton_3;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -245,6 +246,15 @@ public:
 
         gridLayout_3->addWidget(label_6, 2, 3, 1, 1);
 
+        pushButton_3 = new QPushButton(groupBox);
+        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        QFont font1;
+        font1.setBold(false);
+        font1.setWeight(50);
+        pushButton_3->setFont(font1);
+
+        gridLayout_3->addWidget(pushButton_3, 3, 3, 1, 2);
+
 
         gridLayout_2->addWidget(groupBox, 0, 0, 2, 1);
 
@@ -282,6 +292,7 @@ public:
         pushButton->setText(QApplication::translate("projectClass", "\346\213\215\347\205\247", nullptr));
         label_1->setText(QApplication::translate("projectClass", "<html><head/><body><p><br/></p></body></html>", nullptr));
         label_6->setText(QString());
+        pushButton_3->setText(QApplication::translate("projectClass", "Change:test Result is [1-4]", nullptr));
     } // retranslateUi
 
 };

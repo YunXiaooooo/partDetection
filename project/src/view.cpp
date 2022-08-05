@@ -13,6 +13,7 @@ view::view(QWidget *parent)
 
 void view::siganlsConnectInit()
 {
+    connect(ui.pushButton_3, SIGNAL(clicked()), this, SLOT(Change()));
     connect(ui.pushButton, SIGNAL(clicked()), this, SLOT(pushButtonGetImage()));
     connect(this, SIGNAL(oneImageDispaly(int)), this, SLOT(imageDisplay(int)));
     connect(this, SIGNAL(oneImageProcess(cv::Mat&, int)), ptrProcessControl.get(), SLOT(enqueue(cv::Mat&, int)));
@@ -114,6 +115,20 @@ void view::pushButtonGetImage()
         indx = 0;
     }
 }
+void view::Change()
+{
+    static bool flag = false;
+    flag = !flag;
+    ptrCommunicationToolProxy->ChangeAllResultSetOne();
+    if (flag)
+    {
+        ui.pushButton_3->setText("Change:test Result is [1]");
+    }
+    else
+    {
+        ui.pushButton_3->setText("Change:test Result is [1-4]");
+    }
+}
 
 int getFileNumber(std::string folderPath)
 {
@@ -183,7 +198,14 @@ void view::grab(int grabNum)
 
 
     ////ÎÞÏà»ú²âÊÔ
-    //image[grabNum] = cv::imread("./testPic/3" + std::to_string(grabNum+1) + ".bmp");
+    //try
+    //{
+    //    image[grabNum] = cv::imread("./testPic/" + std::to_string(grabNum + 1) + ".bmp");
+    //}
+    //catch (std::exception& e)
+    //{
+    //    printf("¶ÁÍ¼Ê§°Ü:%s \n", e.what());
+    //}
     //ptrCommunicationToolProxy->setGrabFinishedFlag(true, grabNum);
     //emit oneImageProcess(image[grabNum], grabNum);
     //emit oneImageDispaly(grabNum);
