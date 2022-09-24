@@ -8,7 +8,7 @@ void VerifyEncryption(void);
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-	VerifyEncryption();
+	//VerifyEncryption();
     view w;
     w.show();
     return a.exec();
@@ -40,7 +40,7 @@ void VerifyEncryption(void)
 	if (dwRet != ET_E_INSUFFICIENT_BUFFER && dwRet) {
 		// QMessageBox::critical(NULL, "错误", "找不到指定的加密锁！[ERROR CODE: 1]", QMessageBox::Yes);
 		QMessageBox::critical(NULL, QStringLiteral("error"), QStringLiteral("The specified encryption lock could not be found"), QMessageBox::Yes);
-		exit(0);
+		exit(1);
 	}
 	//根据数量分配内存用于存储CONTEXT结构数组
 	pContext = new ET_CONTEXT[dwCount];
@@ -52,14 +52,14 @@ void VerifyEncryption(void)
 		// QMessageBox::critical(NULL, "错误", "找不到指定的加密锁！[ERROR CODE: 2]", QMessageBox::Yes);
 		QMessageBox::critical(NULL, QStringLiteral("error"), QStringLiteral("The specified encryption lock could not be found"), QMessageBox::Yes);
 		delete[] pContext;
-		exit(0);
+		exit(1);
 	}
 	printf("Find ET199 %d\n", dwCount);
 	if (dwCount < 1) {
 		// QMessageBox::critical(NULL, "错误", "找不到指定的加密锁！[ERROR CODE: 3]", QMessageBox::Yes);
 		QMessageBox::critical(NULL, QStringLiteral("error"), QStringLiteral("The specified encryption lock could not be found"), QMessageBox::Yes);
 		delete[] pContext;
-		exit(0);
+		exit(1);
 	}
 	//打开ET199
 	dwRet = ETOpen(&pContext[0]);
@@ -67,7 +67,7 @@ void VerifyEncryption(void)
 		QMessageBox::critical(NULL, QStringLiteral("error"), QStringLiteral("The encryption lock is abnorma"), QMessageBox::Yes);
 		ETClose(&pContext[0]);
 		delete[] pContext;
-		exit(0);
+		exit(1);
 	}
 	//printf("Open ET199: \n");
 	//printf("COS Version: %d.%02d\n", pContext[0].dwVersion >> 8 & 0xff, pContext[0].dwVersion & 0xff);
@@ -83,7 +83,7 @@ void VerifyEncryption(void)
 		QMessageBox::critical(NULL, QStringLiteral("error"), QStringLiteral("Encryption lock authentication failed"), QMessageBox::Yes);
 		ETClose(&pContext[0]);
 		delete[] pContext;
-		exit(0);
+		exit(1);
 	}
 	ETClose(&pContext[0]);
 	delete[] pContext;

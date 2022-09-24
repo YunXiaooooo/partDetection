@@ -18,7 +18,7 @@ bool modbusRtuMaster::modbusRtuMasterInit()
 	modbus_write_register(md_rtu, testAddr, 1222);
 	uint16_t* tab_reg = (uint16_t*)malloc(1 * sizeof(uint16_t));
 	modbus_read_registers(md_rtu, testAddr, 1, tab_reg);
-	//modbus_write_register(md_rtu, testAddr, 0);//恢复默认
+	modbus_write_register(md_rtu, testAddr, 0);//恢复默认
 
 	if (tab_reg == nullptr)
 	{
@@ -53,6 +53,21 @@ void modbusRtuMaster::modbus_rtu_read(const int addr2, const int num)
 	if (regs != num)
 	{
 		printf("modbus_read_registers failure (libmodbus failure) \n");
+		free(tab_reg);
+
+		modbus_rtu_write(testAddr, 1222);
+		modbus_rtu_write(testAddr, 0);
+		////重连
+		//modbus_free(md_rtu);
+		//try {
+		//	md_rtu = modbus_new_rtu(comName.c_str(), baud, parity, dataBit, stopBit);   //相同的端口只能同时打开一个 析构函数中释放，所以写在构造函数中。使用前需要向init
+		//}
+		//catch (std::exception& e)
+		//{
+		//	printf("modbus_new_rtu failure \n");
+		//	std::exit(0);
+		//}
+		//modbusRtuMasterInit();
 		return;
 	}
 	//printf("modbus recevie %d :", ID);
@@ -116,8 +131,8 @@ int communicationToolProxy::ReceiveGrabSignal()
 	
 	assert(data.size() == readNum);
 
-	printf("modbus read data:[%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d]\n", data[0], data[1], data[2], data[3], data[4], data[5], data[6],
-		data[7], data[8], data[9], data[10], data[11]);
+	//printf("modbus read data:[%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d] [%d]\n", data[0], data[1], data[2], data[3], data[4], data[5], data[6],
+		//data[7], data[8], data[9], data[10], data[11]);
 	int res = -1;
 	for (int i = 0; i < readNum; ++i)
 	{
@@ -195,13 +210,19 @@ void communicationToolProxy::setTestResults(std::vector<std::vector<int>>& data)
 	}
 	else
 	{
-		for (int i = 0; i < 12; ++i)
+		//for (int i = 0; i < 12; ++i)
+		//{
+		//	assert(data[i].size() == 4);
+		//	for (int j = 0; j < 4; ++j)
+		//	{
+		//		testResults[i * 4 + j] = static_cast<uint16_t>(data[i][j]);
+		//	}
+		//}
+		for (int i = 0; i < 48; ++i)
 		{
-			assert(data[i].size() == 4);
-			for (int j = 0; j < 4; ++j)
-			{
-				testResults[i * 4 + j] = static_cast<uint16_t>(data[i][j]);
-			}
+			int r = i / 6;
+			int c = i % 6;
+			testResults[i] = static_cast<uint16_t>(data[(r / 2) * 3 + c / 2][(r % 2) * 2 + c % 2]);
 		}
 	}
 }
@@ -232,12 +253,14 @@ void communicationToolProxy::task()
 			if (i != 11)//最后一次抓拍完成信号暂时不给，在检测结果返回以后再给
 			{
 				sendGrabFinishedSignal(i);
+				printf("sendGrabFinishedSignal, i = %d \n", i);
 			}
 			grabFinishedFlags[i] = false;
 		}
 		if (clearFinishedFlags[i])
 		{
 			clearGrabFinishedSignal(i);
+			printf("clearGrabFinishedSignal, i = %d \n", i);
 			clearFinishedFlags[i] = false;
 		}
 	}

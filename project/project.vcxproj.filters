@@ -43,6 +43,12 @@
     <ClCompile Include="src\processControl.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\local_parameter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DL_interface.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="inc\myQTInc\view.h">
@@ -68,6 +74,12 @@
       <Filter>inc</Filter>
     </ClInclude>
     <ClInclude Include="inc\myInc\myTimer.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\myInc\local_parameter.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\myInc\DL_interface.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

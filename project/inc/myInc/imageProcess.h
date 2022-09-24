@@ -8,7 +8,10 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include <math.h>
 #include <algorithm>
-#include <mutex>
+#include "local_parameter.h"
+#include <string>
+
+//#include "DL_interface.h"
 struct boxCoordinates
 {
 	int startRows;
@@ -17,41 +20,43 @@ struct boxCoordinates
 	int endCols;
 };
 
-
 class imageProcess
 {
 public:
 	imageProcess()
 	{
-		baseDInit();
+		param_file.init("config_param");
+		D_hole_XY_in_two_part_image.init("D1_XY_in_two_part_image,D2_XY_in_two_part_image,D3_XY_in_two_part_image,D4_XY_in_two_part_image", param_file);
+		D_hole_XY_in_single_part_image.init("D1_XY_in_single_part_image,D2_XY_in_single_part_image", param_file);
+
 	}
 	~imageProcess()
 	{
-		baseDSave();
+		param_save();
 	}
 	imageProcess(const imageProcess&) = delete;
 	imageProcess& operator=(const imageProcess&) = delete;
 
 	std::vector<int> imageProcessTask(cv::Mat& src, const int grabNum);
-	void baseDSave();
+	void param_save()
+	{
+		D_hole_XY_in_two_part_image.update_to_file(param_file);
+		D_hole_XY_in_two_part_image.update_to_file(param_file);
+		param_file.save_file();
+	}
 
 private:
+	parameter_file param_file;
 	const std::array<double, 3> cammeraAngle{ 26.0,36.6,46.4 };
-
+	
+	D_XY_base D_hole_XY_in_two_part_image, D_hole_XY_in_single_part_image;
 	const struct boxCoordinates locationForROI { 1024 - 470, 1024 + 470, 1224 - 450, 1224 + 450 };
 
 	const double ratio = 420.0 / 434;
-	const int OTSU_threadNumMin = 65;//4个零件一起进行otsu二值化，如果阈值过低，认为4个孔位全部没有零件
-	const unsigned int deadNoPartHoleNum = 13000;//白点数量小于该值认为该位置没有零件
+	const int OTSU_threadNumMin = 30;//4个零件一起进行otsu二值化，如果阈值过低，认为4个孔位全部没有零件
+	const unsigned int deadNoPartHoleNum = 6000;//白点数量小于该值认为该位置没有零件
 	const double minDHoleArea = 150, maxDHoleArea = 700;//超过这个面积认为轮廓不可能位D形孔
 	float lengthCompareWidth = 3.0;
-	std::array<cv::Point2f, 4> baseD{ cv::Point2f(327,141),cv::Point2f(305,586), cv::Point2f(326,796), cv::Point2f(307,1236) };
-	std::array<cv::Point2f, 2> singleBaseD{ cv::Point2f(341,117),cv::Point2f(342,512) };
-	std::mutex mut;
-	std::array<cv::Point2f, 4> threadBaseD{ cv::Point2f(327,141),cv::Point2f(305,586), cv::Point2f(326,796), cv::Point2f(307,1236) };
-	std::array<cv::Point2f, 2> threadSingleBaseD{ cv::Point2f(341,117),cv::Point2f(342,512) };
-
-
 	double judgementDeadValue = 0;
 
 private:
@@ -78,10 +83,7 @@ private:
 	double getLengthCompareWidth(const cv::RotatedRect& box);
 	void drawGrayHist(const cv::Mat& src);
 	void sharpenImage1(const cv::Mat& image, cv::Mat& result);
-	int nearestD(const cv::Point2i& p, double& minValue);
-	int nearestSingleD(const cv::Point2i& p, double& minValue);
-	void baseDInit();
-	void setThreadBaseD();
+	int nearestD(const cv::Point2i& p, double& minValue, const D_XY_base& base);
 
 };
 

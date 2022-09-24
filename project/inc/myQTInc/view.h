@@ -11,7 +11,6 @@
 #include "processControl.h"
 #include "myTimer.h"
 #include "communication.h"
-#include <filesystem>
 #include<stack>
 #include <exception> 
 class view : public QMainWindow

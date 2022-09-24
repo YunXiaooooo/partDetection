@@ -59,8 +59,8 @@
     <LibraryPath>.\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <LibraryPath>.\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>.\inc\myQTInc;.\inc\threadpoolInc;.\inc\myInc;.\inc\opencvInc;.\inc\hikrobotInc;.\inc\ET199Inc;.\inc\libmodbusInc;$(IncludePath)</IncludePath>
+    <LibraryPath>.\lib\libtorch_lib;.\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\inc\libtorchInc\torch\csrc\api\include;.\inc\libtorchInc;.\inc\myQTInc;.\inc\threadpoolInc;.\inc\myInc;.\inc\opencvInc;.\inc\hikrobotInc;.\inc\ET199Inc;.\inc\libmodbusInc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
@@ -72,10 +72,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalDependencies>opencv_world3411.lib;MvCameraControl.lib;Modbus.lib;ET199_64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world3411.lib;MvCameraControl.lib;Modbus.lib;ET199_64.lib;c10.lib
+;
+torch.lib
+;torch_cpu.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ClCompile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -110,11 +113,15 @@
   <ItemGroup>
     <ClCompile Include="src\CameraDrive.cpp" />
     <ClCompile Include="src\communication.cpp" />
+    <ClCompile Include="src\DL_interface.cpp" />
     <ClCompile Include="src\imageProcess.cpp" />
+    <ClCompile Include="src\local_parameter.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\myTimer.cpp" />
     <ClCompile Include="src\processControl.cpp" />
-    <ClCompile Include="src\view.cpp" />
+    <ClCompile Include="src\view.cpp">
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp17</LanguageStandard>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="inc\myQTInc\view.h" />
@@ -124,6 +131,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\myInc\CameraDrive.h" />
+    <ClInclude Include="inc\myInc\DL_interface.h" />
+    <ClInclude Include="inc\myInc\local_parameter.h" />
     <ClInclude Include="inc\myInc\myTimer.h" />
     <QtMoc Include="inc\myInc\processControl.h" />
     <QtMoc Include="inc\myInc\communication.h" />

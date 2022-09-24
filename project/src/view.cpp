@@ -1,4 +1,5 @@
 #include "view.h"
+#include <filesystem>
 
 view::view(QWidget *parent)
     : QMainWindow(parent)
@@ -31,7 +32,7 @@ void view::Init()
         catch (std::exception& e)
         {
             printf("New Camera Failure (%s)\n", e.what());
-            std::exit(0);//abort不做任何释放，exit会做部分清理
+            //std::exit(1);//abort不做任何释放，exit会做部分清理
         }
     }
     try {
@@ -40,14 +41,14 @@ void view::Init()
         if (ExternalCameraNum < 1 || initFlag == false)
         {
             printf("Init Camera Failure :ExternalCameraNum = %d, initFlag = %d\n", ExternalCameraNum, initFlag);
-            std::exit(0);
+            //std::exit(1);
         }
 
     }
     catch (std::exception& e)
     {
         printf("Init Camera Failure (%s)\n", e.what());
-        std::exit(0);
+        //std::exit(1);
     }
 
     if (ptrProcessControl == nullptr)
@@ -58,7 +59,7 @@ void view::Init()
         catch (std::exception& e)
         {
             printf("New processControl Failure (%s)\n", e.what());
-            std::exit(0);
+            std::exit(1);
         }
     }
     if (ptrCommunicationToolProxy == nullptr)
@@ -69,7 +70,7 @@ void view::Init()
         catch (std::exception& e)
         {
             printf("New communicationToolProxy Failure (%s)\n", e.what());
-            std::exit(0);
+            std::exit(1);
         }
     }
     if (ptrMyTimer == nullptr)
@@ -80,7 +81,7 @@ void view::Init()
         catch (std::exception& e)
         {
             printf("New myTimer Failure (%s) \n", e.what());
-            std::exit(0);
+            std::exit(1);
         }
         ptrMyTimer->start(200, myTimerTask, ptrCommunicationToolProxy);//第一个参数为定时器间隔 ms
     }
@@ -90,7 +91,8 @@ void view::Init()
 void view::imageDisplay(int indx)
 {
     cv::Mat pix;
-    if (image[indx].channels() == 1)
+    printf("image[indx].channels()==%d \n", image[indx].channels());
+    if (image[indx].channels() != 3)
     {
         cv::cvtColor(image[indx], pix, CV_GRAY2RGB);
     }
@@ -130,7 +132,7 @@ void view::Change()
     }
 }
 
-int getFileNumber(std::string folderPath)
+int getFileNumber(std::string folderPath) //需要c++17标准，此文件使用c++17编译
 {
     using namespace std::filesystem;
     if (!exists(folderPath))		// 如果目录不存在
@@ -163,57 +165,58 @@ int getFileNumber(std::string folderPath)
         }
     }
     return files;
+    //return 0;
 }
 void view::grab(int grabNum)
 {
     static int imageNum = getFileNumber("./grabPic/0");
-    try
-    {
-        printf("waitting grab \n");
-        image[grabNum] = ptrMyCameras->grabForSoftTriggerMode(0);//传入0是因为仅有一个相机
-        printf("grab finished \n");
-    }
-    catch (std::exception& e)
-    {
-        printf("grabForSoftTrigger failure! (%s) \n", e.what());
-        std::exit(0);
-    }
-    try{
-        cv::imwrite("./grabPic/" + std::to_string(grabNum) + "/" + std::to_string(imageNum) + ".jpg", image[grabNum]);
-    }
-    catch (std::exception& e)
-    {
-        printf("save the grab image failure! (%s) \n", e.what());
-    }
-    ptrCommunicationToolProxy->setGrabFinishedFlag(true, grabNum);
-    emit oneImageProcess(image[grabNum], grabNum);
-    emit oneImageDispaly(grabNum);
-
-    if (grabNum==11)
-    {
-        imageNum++;
-        //等待处理结果并发送
-        emit readyToReply();
-    }
-
-
-    ////无相机测试
     //try
     //{
-    //    image[grabNum] = cv::imread("./testPic/" + std::to_string(grabNum + 1) + ".bmp");
+    //    printf("waitting grab \n");
+    //    image[grabNum] = ptrMyCameras->grabForSoftTriggerMode(0);//传入0是因为仅有一个相机
+    //    printf("grab finished \n");
     //}
     //catch (std::exception& e)
     //{
-    //    printf("读图失败:%s \n", e.what());
+    //    printf("grabForSoftTrigger failure! (%s) \n", e.what());
+    //    std::exit(1);
+    //}
+    //try{
+    //    cv::imwrite("./grabPic/" + std::to_string(grabNum) + "/" + std::to_string(imageNum) + ".bmp", image[grabNum]);
+    //}
+    //catch (std::exception& e)
+    //{
+    //    printf("save the grab image failure! (%s) \n", e.what());
     //}
     //ptrCommunicationToolProxy->setGrabFinishedFlag(true, grabNum);
     //emit oneImageProcess(image[grabNum], grabNum);
     //emit oneImageDispaly(grabNum);
-    //if (grabNum == 11)
+
+    //if (grabNum==11)
     //{
+    //    imageNum++;
     //    //等待处理结果并发送
     //    emit readyToReply();
     //}
+
+
+    //无相机测试
+    try
+    {
+        image[grabNum] = cv::imread("./grabPic0825/" + std::to_string(grabNum) + "/2.jpg", cv::IMREAD_GRAYSCALE);
+    }
+    catch (std::exception& e)
+    {
+        printf("读图失败:%s \n", e.what());
+    }
+    ptrCommunicationToolProxy->setGrabFinishedFlag(true, grabNum);
+    emit oneImageProcess(image[grabNum], grabNum);
+    emit oneImageDispaly(grabNum);
+    if (grabNum == 11)
+    {
+        //等待处理结果并发送
+        emit readyToReply();
+    }
 }
 
 void view::prepareToReply()

@@ -16,7 +16,10 @@
 *.dylib
 x64/Release/opencv_world3411.dll
 x64/Debug/opencv_world3411d.dll
-#opencv的dll超过100M
+x64/Release/torch_cpu.dll
+project/lib/libtorch_lib/*.dll
+project/lib/libtorch_lib/backup/*
+#以上文件超过100M
 
 
 # Fortran module files

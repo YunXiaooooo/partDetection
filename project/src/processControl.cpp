@@ -10,7 +10,7 @@ processControl::processControl() :threadNum(4)
 		catch (std::exception& e)
 		{
 			printf("New ThreadPool Falue (%s) \n", e.what());
-			std::exit(0);
+			std::exit(1);
 		}
 	}
 	if (ptrImageprocess == nullptr)
@@ -21,7 +21,7 @@ processControl::processControl() :threadNum(4)
 		catch (std::exception& e)
 		{
 			printf("New Imageprocess Failure (%s)\n", e.what());
-			std::exit(0);
+			std::exit(1);
 		}
 	}
 	testResults.resize(threadNum);
@@ -50,7 +50,7 @@ void processControl::waitTestResults()
 		testOrder.pop();
 		testResults[i] = fut.get();//如果出现多次相同grabNum,抓拍信号只保留最近一次的检测结果
 	}
-	ptrImageprocess->baseDSave();//
+	ptrImageprocess->param_save();//
 }
 
 std::vector<int> processTask(std::shared_ptr<imageProcess> ptrImageprocess, cv::Mat& img, const int num)

@@ -1,0 +1,34 @@
+QMAKE_CXX.QT_COMPILER_STDCXX = 199711L
+QMAKE_CXX.QMAKE_MSC_VER = 1929
+QMAKE_CXX.QMAKE_MSC_FULL_VER = 192930145
+QMAKE_CXX.COMPILER_MACROS = \
+    QT_COMPILER_STDCXX \
+    QMAKE_MSC_VER \
+    QMAKE_MSC_FULL_VER
+QMAKE_CXX.INCDIRS = \
+    .\\inc\\myQTInc \
+    .\\inc\\threadpoolInc \
+    .\\inc\\myInc \
+    .\\inc\\opencvInc \
+    .\\inc\\hikrobotInc \
+    .\\inc\\ET199Inc \
+    .\\inc\\libmodbusInc \
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include" \
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include" \
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include" \
+    "D:\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt" \
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\UnitTest\\include" \
+    "D:\\Windows Kits\\10\\Include\\10.0.19041.0\\um" \
+    "D:\\Windows Kits\\10\\Include\\10.0.19041.0\\shared" \
+    "D:\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt" \
+    "D:\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt" \
+    Include\\um
+QMAKE_CXX.LIBDIRS = \
+    .\\lib \
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\lib\\x64" \
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\lib\\x64" \
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\lib\\x64" \
+    "D:\\Windows Kits\\10\\lib\\10.0.19041.0\\ucrt\\x64" \
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\UnitTest\\lib" \
+    "D:\\Windows Kits\\10\\lib\\10.0.19041.0\\um\\x64" \
+    lib\\um\\x64

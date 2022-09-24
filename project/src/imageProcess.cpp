@@ -1,8 +1,14 @@
 #include "imageProcess.h"
+#include "DL_interface.h"
+
 #include <windows.h>
 
 #undef max
 #undef min
+
+//因为DL_interface.h加入imageProcess.h会导致冲突无法编译，所以DL_module不能在imageProcess类内声明
+//使用全局变量作为替代
+static DL_module dl_model("part_cut_gray_resnet.pt", false);
 
 void imageProcess::realImageProcess(cv::Mat& src, const int grabNum, std::vector<int>& result)//传入grabNum方便调试查看哪副图片出错
 {
@@ -16,22 +22,21 @@ void imageProcess::realImageProcess(cv::Mat& src, const int grabNum, std::vector
 	clock_t start = clock();
 	result.clear();
 	result.resize(4, 4); // 默认异常零件，检测到了才给其他状态
-	setThreadBaseD();
 	imagePerspective(src, grabNum);//矫正
-	//saveImage("src" + std::to_string(grabNum) + ".jpg", src);//保存原图方便debug
+	//saveImage("src" + std::to_string(grabNum) + ".bmp", src);//保存原图方便debug
 	//showImage("src", src, 0, true);
 
 	cv::Mat grayRoiAboutFourParts, binaryRoiAboutFourParts;
 	double OTSU_threadNum = getRoiAboutFourParts(src, grayRoiAboutFourParts, binaryRoiAboutFourParts);
 
-	//saveImage("grayRoiAboutTwentyParts" + std::to_string(grabNum) + ".jpg", grayRoiAboutTwentyParts);//保存原图方便debug
+	saveImage("grayRoiAboutFourParts" + std::to_string(grabNum) + ".bmp", grayRoiAboutFourParts);//保存原图方便debug
 	printf("OTSU_threadValue: %f \n", OTSU_threadNum);
-	if (OTSU_threadNum < OTSU_threadNumMin)//阈值过小，12孔位全部没有零件
-	{
-		result.clear();
-		result.resize(4, 3);
-		return;
-	}
+	//if (OTSU_threadNum < OTSU_threadNumMin)//阈值过小，12孔位全部没有零件
+	//{
+	//	result.clear();
+	//	result.resize(4, 3);
+	//	return;
+	//}
 
 	std::vector<struct boxCoordinates> doubleHoleImageCoordinates(2);
 	doubleHoleImageCoordinates[1].startRows = 0;
@@ -48,6 +53,8 @@ void imageProcess::realImageProcess(cv::Mat& src, const int grabNum, std::vector
 	std::vector<struct boxCoordinates> holeImageCoordinates(4);
 	getHoleImageCoordinates(holeImageCoordinates, doubleHoleImageCoordinates, OTSU_threadNum, grayRoiAboutFourParts, binaryRoiAboutFourParts);
 	//开始对单个零件进行检测
+	DL_module m;
+	dl_model.clone(m);
 	for (int holeNum = 0; holeNum < 4; ++holeNum)
 	{
 		try
@@ -55,114 +62,82 @@ void imageProcess::realImageProcess(cv::Mat& src, const int grabNum, std::vector
 			printf("\n*************************************************\n");
 			cv::Mat holeImage = binaryRoiAboutFourParts(cv::Range(holeImageCoordinates[holeNum].startRows, holeImageCoordinates[holeNum].endRows),
 				cv::Range(holeImageCoordinates[holeNum].startCols, holeImageCoordinates[holeNum].endCols));
-			//cv::imshow("holeImage", holeImage);
-			//cv::waitKey(0);
-			printf("white point num：%d \n", getSumOfBinaryImage(holeImage));
-			if (getSumOfBinaryImage(holeImage) < deadNoPartHoleNum)
-			{
-				printf("no part in hole \n");
-				result[holeNum] = 3;
-				continue;
-			}
-
 			cv::Mat grayPart = grayRoiAboutFourParts(cv::Range(holeImageCoordinates[holeNum].startRows, holeImageCoordinates[holeNum].endRows),
 				cv::Range(holeImageCoordinates[holeNum].startCols, holeImageCoordinates[holeNum].endCols)).clone();
 
-			//drawGrayHist(grayPart);
-			//showImage("grayPart", grayPart, 1, true);
 			double th = cv::threshold(grayPart, holeImage, 0, 255, CV_THRESH_OTSU);
-			//th = cv::threshold(grayPart, holeImage, th * 0.99, 255, CV_THRESH_BINARY);
-			printf("thread for holeImage：%f \n", th);
-			if (th < OTSU_threadNumMin)
-			{
-				printf("no part in hole \n");
-				result[holeNum] = 3;
-				continue;
-			}
+			th = cv::threshold(grayPart, holeImage, th * 0.9, 255, CV_THRESH_BINARY);
 
 			cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(5, 5));
 			morphologyEx(holeImage, holeImage, cv::MORPH_CLOSE, kernel);
 			kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
 			morphologyEx(holeImage, holeImage, cv::MORPH_OPEN, kernel);//开运算去除游离在外的小白点
-			//showImage("holeImage", holeImage, 1, true);
-			//saveImage("holeImage.jpg", holeImage);
+			//showImage("holeImage", holeImage, 0, false);
 
 			std::vector<cv::Point2i> DCoordinates(2);
 			getTwoContactDHoleCoordinates(holeImage, DCoordinates);
-			if (DCoordinates.size() != 2)
-			{
-				printf("异常！ 没有找到D形孔 \n");
-				result[holeNum] = 4;
-				continue;
-			}
 
-			printf("coordinate of up D : x = %d  y = %d \n", DCoordinates[0].x, DCoordinates[0].y);
-			printf("coordinate of down D: x = %d  y = %d \n", DCoordinates[1].x, DCoordinates[1].y);
-
-			double contactDistance = getDistance(DCoordinates[0], DCoordinates[1]);
-			printf("contactDistance = %f \n", contactDistance);
-			double realContactDistance = contactDistance * ratio;
-			printf("realContactDistance = %f \n", realContactDistance);
-
-			double angle = atan2(abs(DCoordinates[1].y - DCoordinates[0].y), DCoordinates[0].x - DCoordinates[1].x);//返回para1/para2的反正切，-pi到pi
-			angle = angle / 3.1415926 * 180;
-			printf("part contact angle = %f\n", angle);
-			if (angle < 60 || angle>120)
-			{
-				printf("触点角度异常 \n");
-				result[holeNum] = 4;
-				continue;
-			}
-			//if(realContactDistance)
-
-
-
-
-			/************************检测缺口朝向**********************/
 			//上侧缺口
 			struct boxCoordinates upContactCoordiate;
-			upContactCoordiate.startRows = std::max(static_cast<int>(DCoordinates[0].y - 80), 0);
-			upContactCoordiate.endRows = std::min(static_cast<int>(DCoordinates[0].y + 30), holeImage.rows);
-			upContactCoordiate.startCols = std::max(static_cast<int>(DCoordinates[0].x - 55), 0);
-			upContactCoordiate.endCols = std::min(static_cast<int>(DCoordinates[0].x + 55), holeImage.cols);
+			upContactCoordiate.startRows = std::max(static_cast<int>(DCoordinates[0].y - 89), 0);
+			upContactCoordiate.endRows = std::min(static_cast<int>(DCoordinates[0].y + 39), holeImage.rows);
+			upContactCoordiate.startCols = std::max(static_cast<int>(DCoordinates[0].x - 64), 0);
+			upContactCoordiate.endCols = std::min(static_cast<int>(DCoordinates[0].x + 64), holeImage.cols);
 
 			cv::Point2i upCenter(DCoordinates[0].x - upContactCoordiate.startCols, DCoordinates[0].y - upContactCoordiate.startRows);
 
-			cv::Mat upContactImage = holeImage(cv::Range(upContactCoordiate.startRows, upContactCoordiate.endRows),
+			cv::Mat upContactImage = grayPart(cv::Range(upContactCoordiate.startRows, upContactCoordiate.endRows),
 				cv::Range(upContactCoordiate.startCols, upContactCoordiate.endCols)).clone();
-
-			upContactImage = RotateImage(upContactImage, (90 - angle), 0, upCenter);//根据两触点之间的连线旋转角度使触点竖直
-			rotateContact(upContactImage, upCenter);
-			//showImage("upContactImage", upContactImage, 1, true);
-
-			std::pair<int, int> upValue = getLeftAndRightHalfValue(upContactImage, true);
-
 			//下侧缺口
 			struct boxCoordinates downContactCoordiate;
-			downContactCoordiate.startRows = std::max(static_cast<int>(DCoordinates[1].y - 30), 0);
-			downContactCoordiate.endRows = std::min(static_cast<int>(DCoordinates[1].y + 70), holeImage.rows);
-			downContactCoordiate.startCols = std::max(static_cast<int>(DCoordinates[1].x - 55), 0);
-			downContactCoordiate.endCols = std::min(static_cast<int>(DCoordinates[1].x + 55), holeImage.cols);
+			downContactCoordiate.startRows = std::max(static_cast<int>(DCoordinates[1].y - 39), 0);
+			downContactCoordiate.endRows = std::min(static_cast<int>(DCoordinates[1].y + 89), holeImage.rows);
+			downContactCoordiate.startCols = std::max(static_cast<int>(DCoordinates[1].x - 64), 0);
+			downContactCoordiate.endCols = std::min(static_cast<int>(DCoordinates[1].x + 64), holeImage.cols);
 
 			cv::Point2i downCenter(DCoordinates[1].x - downContactCoordiate.startCols, DCoordinates[1].y - downContactCoordiate.startRows);
 
-			cv::Mat downContactImage = holeImage(cv::Range(downContactCoordiate.startRows, downContactCoordiate.endRows),
+			cv::Mat downContactImage = grayPart(cv::Range(downContactCoordiate.startRows, downContactCoordiate.endRows),
 				cv::Range(downContactCoordiate.startCols, downContactCoordiate.endCols)).clone();
-
-			downContactImage = RotateImage(downContactImage, (90 - angle), 0, downCenter);//根据两触点之间的连线旋转角度使触点竖直
-			rotateContact(downContactImage, downCenter);
-			//showImage("downContactImage", downContactImage, 1, true);
-			std::pair<int, int> downValue = getLeftAndRightHalfValue(downContactImage, false);
-
-			leftOrRightJudgment(upValue, downValue, result, holeNum);
+			//showImage("upContactImage", upContactImage, 0, false);
+			//showImage("downContactImage", downContactImage, 0, true);
+			//saveImage("upContactImage" + std::to_string(grabNum)+"-"+std::to_string(holeNum) + ".bmp", upContactImage);//保存原图方便debug
+			//saveImage("downContactImage" + std::to_string(grabNum) + "-" + std::to_string(holeNum) + ".bmp", downContactImage);
+			cv::flip(downContactImage, downContactImage, 0);//上下翻转
+			cv::resize(upContactImage, upContactImage, cv::Size(128, 128));
+			cv::resize(downContactImage, downContactImage, cv::Size(128, 128));
+			std::pair<int, float> UpClassAndProbability(-1, -1), DownClassAndProbability(-1,-1);
+			std::pair<int, float> ClassAndProbability(-1, -1);
+			//推理
+			m.single_interface(upContactImage, UpClassAndProbability);
+			m.single_interface(downContactImage, DownClassAndProbability);
+			//结合两次判决
+			printf("UpClassAndProbability:%d, %f \n", UpClassAndProbability.first, UpClassAndProbability.second);
+			printf("DownClassAndProbability:%d, %f \n", DownClassAndProbability.first, DownClassAndProbability.second);
+			if (UpClassAndProbability.first == DownClassAndProbability.first)
+			{
+				ClassAndProbability.first = UpClassAndProbability.first;
+				ClassAndProbability.second = (UpClassAndProbability.second + DownClassAndProbability.second) / 2;
+			}
+			else
+			{
+				result[holeNum] = 4;
+			}
+			if (ClassAndProbability.first >= 0 && ClassAndProbability.second > 0.6)
+			{
+				result[holeNum] = ClassAndProbability.first + 1;
+			}
+			else
+			{
+				result[holeNum] = 4;
+			}
 		}
 		catch (std::exception& e)
 		{
-			printf("图片【%d】穴位【%d】异常 \n", grabNum, holeNum);
+			printf("图片【%d】穴位【%d】异常: %s\n", grabNum, holeNum, e.what());
 			result[holeNum] = 4;
 		}
 	}
-
 	//Sleep(2000);//ms
 	clock_t ends = clock();
 	printf("imageProcess Running Time = %f \n", ((double)(ends)-start) / CLOCKS_PER_SEC);
@@ -270,7 +245,7 @@ void imageProcess::getTwoContactDHoleCoordinates(const cv::Mat& image, std::vect
 	std::vector<std::vector<cv::Point>> contours;
 	std::vector<cv::Vec4i> hierarchy;
 	cv::bitwise_not(DHoleImage, DHoleImage);
-	//saveImage("DHoleImage.jpg", DHoleImage);
+	//saveImage("DHoleImage.bmp", DHoleImage);
 	//showImage("DHoleImage", DHoleImage, 1, true);
 
 	findContours(DHoleImage, contours, hierarchy, CV_RETR_EXTERNAL, cv::CHAIN_APPROX_NONE, cv::Point());
@@ -312,7 +287,7 @@ void imageProcess::getTwoContactDHoleCoordinates(const cv::Mat& image, std::vect
 				cv::Moments momentOfD = cv::moments(contours[itor->second]);
 				cv::Point2i temp{ static_cast<int>(1.0 * momentOfD.m10 / momentOfD.m00) ,static_cast<int>(1.0 * momentOfD.m01 / momentOfD.m00) };
 				double minDistance = 0;
-				int Dindx = nearestD(temp, minDistance);
+				int Dindx = nearestD(temp, minDistance, D_hole_XY_in_single_part_image);
 				DScoreAndPoint[Dindx].emplace_back(minDistance / itor->first, temp);//分数由距离除以面积得到，越小越好，面积在前面限制了最小，不会为0
 			}
 			itor++;
@@ -321,21 +296,13 @@ void imageProcess::getTwoContactDHoleCoordinates(const cv::Mat& image, std::vect
 		{
 			if (DScoreAndPoint[i].size() == 0)
 			{
-				DCoordinates[i] = threadSingleBaseD[i];
+				DCoordinates[i] = D_hole_XY_in_single_part_image.read(i);
 				continue;
 			}
 			std::sort(DScoreAndPoint[i].begin(), DScoreAndPoint[i].end(), [&](auto d1, auto d2) {return d1.first < d2.first; });//升序
 			DCoordinates[i] = DScoreAndPoint[i][0].second;
 			//迭代更新基准坐标
-			cv::Point2f temp = threadSingleBaseD[i];
-			temp.x = temp.x * 0.9 + DCoordinates[i].x * 0.1;
-			temp.y = temp.y * 0.9 + DCoordinates[i].y * 0.1;
-			threadSingleBaseD[i] = temp;
-			{
-				std::lock_guard lock(mut);
-				singleBaseD[i] = threadSingleBaseD[i];
-			}
-			printf("New singleBaseD[%d] :x=%f, y=%f \n", i, temp.x, temp.y);
+			D_hole_XY_in_single_part_image.update(i, DCoordinates[i]);
 		}
 	}
 }
@@ -667,7 +634,7 @@ void imageProcess::getHoleImageCoordinates(std::vector<struct boxCoordinates>& h
 		//showImage("eauql", eauql, 0, true);
 		cv::Mat temp;
 		double OTSU_threadNum = cv::threshold(doubleHoleimage, doubleHoleimage, 0, 255, CV_THRESH_OTSU);
-		//OTSU_threadNum = cv::threshold(doubleHoleimage, doubleHoleimage, OTSU_threadNum * 0.99, 255, CV_THRESH_BINARY);
+		OTSU_threadNum = cv::threshold(doubleHoleimage, doubleHoleimage, OTSU_threadNum * 0.9, 255, CV_THRESH_BINARY);
 		printf("OTSU_threadNum for double hole : %f \n", OTSU_threadNum);
 		if (abs(OTSU_threadNum - base_thread) > 40)//局部阈值异常，用全局的二值化图片
 		{
@@ -762,7 +729,7 @@ void imageProcess::getFourContactDHoleCoordinates(const cv::Mat& image, std::vec
 	std::vector<cv::Vec4i> hierarchy;
 	cv::bitwise_not(DHoleImage, DHoleImage);
 	//showImage("DHoleImage", DHoleImage, 0, true);
-	//saveImage("DHoleImage.jpg", DHoleImage);
+	//saveImage("DHoleImage.bmp", DHoleImage);
 
 	findContours(DHoleImage, contours, hierarchy, CV_RETR_EXTERNAL, cv::CHAIN_APPROX_NONE, cv::Point());
 
@@ -790,7 +757,7 @@ void imageProcess::getFourContactDHoleCoordinates(const cv::Mat& image, std::vec
 			cv::Moments momentOfD = cv::moments(contours[itor->second]);
 			cv::Point2i temp{ static_cast<int>(1.0 * momentOfD.m10 / momentOfD.m00) ,static_cast<int>(1.0 * momentOfD.m01 / momentOfD.m00) };
 			double minDistance = 0;
-			int Dindx = nearestD(temp, minDistance);
+			int Dindx = nearestD(temp, minDistance, D_hole_XY_in_two_part_image);
 			DScoreAndPoint[Dindx].emplace_back(minDistance / itor->first, temp);//分数由距离除以面积得到，越小越好，面积在前面限制了最小，不会为0
 		}
 		itor++;
@@ -802,21 +769,13 @@ void imageProcess::getFourContactDHoleCoordinates(const cv::Mat& image, std::vec
 	{
 		if (DScoreAndPoint[i].size() == 0)
 		{
-			DCoordinates[i] = threadBaseD[i];
+			DCoordinates[i] = D_hole_XY_in_two_part_image.read(i);
 			continue;
 		}
 		std::sort(DScoreAndPoint[i].begin(), DScoreAndPoint[i].end(), [&](auto d1, auto d2) {return d1.first < d2.first; });//升序
 		DCoordinates[i] = DScoreAndPoint[i][0].second;
 		//迭代更新基准坐标
-		cv::Point2f temp = threadBaseD[i];
-		temp.x = temp.x * 0.9 + DCoordinates[i].x * 0.1;
-		temp.y = temp.y * 0.9 + DCoordinates[i].y * 0.1;
-		threadBaseD[i] = temp;
-		{
-			std::lock_guard lock(mut);
-			baseD[i] = threadBaseD[i];
-		}
-		printf("New baseD[%d] :x=%f, y=%f \n", i, temp.x, temp.y);
+		D_hole_XY_in_two_part_image.update(i, DCoordinates[i]);
 	}
 }
 
@@ -839,7 +798,7 @@ void imageProcess::showImage(const std::string& name, const cv::Mat& src, const 
 			cv::namedWindow(name.c_str(), namewindow);
 		}
 		cv::imshow(name.c_str(), src);
-		//cv::imwrite("srcP.jpg", src);
+		//cv::imwrite("srcP.bmp", src);
 		if (wait)
 		{
 			cv::waitKey(0);
@@ -868,13 +827,13 @@ double imageProcess::getRoiAboutFourParts(const cv::Mat& src, cv::Mat& grayRoi, 
 	//	unsigned char *ptr = grayRoi.ptr<unsigned char>(i);
 	//	for (int j = 0; j < grayRoi.cols; ++j)
 	//	{
-	//		ptr[j] = static_cast<unsigned char>(round(pow(ptr[j], 1)));
+	//		ptr[j] = static_cast<unsigned char>(round(pow(ptr[j], 0.98)));
 	//	}
 	//}
 	//showImage("grayRoi.9", grayRoi, 0, true);
 	//drawGrayHist(grayRoi);
 
-	//闭运算,填充缝隙
+	////闭运算,填充缝隙
 	cv::Mat element;
 	element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(5, 5));
 	morphologyEx(grayRoi, binaryRoi, cv::MORPH_CLOSE, element);
@@ -882,7 +841,7 @@ double imageProcess::getRoiAboutFourParts(const cv::Mat& src, cv::Mat& grayRoi, 
 	//cv::Mat temp;
 	double OTSU_threadNum = cv::threshold(binaryRoi, binaryRoi, 0, 255, CV_THRESH_OTSU);
 
-	//OTSU_threadNum = cv::threshold(binaryRoi, binaryRoi, OTSU_threadNum*0.99, 255, CV_THRESH_BINARY);
+	OTSU_threadNum = cv::threshold(binaryRoi, binaryRoi, OTSU_threadNum*0.9, 255, CV_THRESH_BINARY);
 	//showImage("binaryRoi", binaryRoi, 0, true);
 	return OTSU_threadNum;
 }
@@ -943,13 +902,14 @@ void imageProcess::sharpenImage1(const cv::Mat& image, cv::Mat& result)
 	cv::filter2D(image, result, image.depth(), kernel);
 }
 
-int imageProcess::nearestD(const cv::Point2i& p, double& minValue)
+int imageProcess::nearestD(const cv::Point2i& p, double& minValue, const D_XY_base& base)
 {
-	minValue = getDistance(p, threadBaseD[0]);
+	minValue = getDistance(p, base.read(0));
 	int indx = 0;
-	for (int i = 1; i < 4; ++i)
+	int len = base.size();
+	for (int i = 1; i < len; ++i)
 	{
-		double value = getDistance(p, threadBaseD[i]);
+		double value = getDistance(p, base.read(i));
 		if (minValue > value)
 		{
 			minValue = value;
@@ -957,111 +917,4 @@ int imageProcess::nearestD(const cv::Point2i& p, double& minValue)
 		}
 	}
 	return indx;
-}
-int imageProcess::nearestSingleD(const cv::Point2i& p, double& minValue)
-{
-	minValue = getDistance(p, threadSingleBaseD[0]);
-	int indx = 0;
-	for (int i = 1; i < 2; ++i)
-	{
-		double value = getDistance(p, threadSingleBaseD[i]);
-		if (minValue > value)
-		{
-			minValue = value;
-			indx = i;
-		}
-	}
-	return indx;
-}
-
-
-void imageProcess::baseDInit()
-{
-	std::lock_guard lock(mut);
-	try
-	{
-		std::ifstream baseDTXT;
-		baseDTXT.open("baseD.txt");
-		std::string tmp_line;
-
-		baseDTXT >> tmp_line;//空行
-		//std::cout << "（cout） " << tmp_line << std::endl;
-		for (int j = 0; j < 4; ++j)
-		{
-			baseDTXT >> tmp_line;
-			baseD[j].x = std::atof(tmp_line.c_str());
-			printf("baseD[%d].x = %f  ", j, baseD[j].x);
-
-			baseDTXT >> tmp_line;
-			baseD[j].y = std::atof(tmp_line.c_str());
-			printf("baseD[%d].y = %f\n", j, baseD[j].y);
-
-			baseDTXT >> tmp_line;//空行
-		}
-		baseDTXT.close();
-
-		baseDTXT.open("singleBaseD.txt");
-		baseDTXT >> tmp_line;//空行
-		//std::cout << "（cout） " << tmp_line << std::endl;
-		for (int j = 0; j < 2; ++j)
-		{
-			baseDTXT >> tmp_line;
-			singleBaseD[j].x = std::atof(tmp_line.c_str());
-			printf("singleBaseD[%d].x = %f  ", j, singleBaseD[j].x);
-
-			baseDTXT >> tmp_line;
-			singleBaseD[j].y = std::atof(tmp_line.c_str());
-			printf("singleBaseD[%d].y = %f\n", j, singleBaseD[j].y);
-
-			baseDTXT >> tmp_line;//空行
-		}
-		baseDTXT.close();
-	}
-	catch (std::exception& e)
-	{
-		printf("baseDInit failure \n");
-	}
-}
-
-void imageProcess::baseDSave()
-{
-	std::lock_guard lock(mut);
-	try
-	{
-		std::ofstream  baseDTXT;
-		baseDTXT.open("baseD.txt");
-		std::string tmp_line;
-
-		baseDTXT << "******" << std::endl;;
-		for (int j = 0; j < 4; ++j)
-		{
-			baseDTXT << baseD[j].x << std::endl;
-			baseDTXT << baseD[j].y << std::endl;
-			baseDTXT << "------" << std::endl;
-		}
-		baseDTXT.close();
-
-
-		baseDTXT.open("singleBaseD.txt");
-
-		baseDTXT << "******" << std::endl;;
-		for (int j = 0; j < 2; ++j)
-		{
-			baseDTXT << singleBaseD[j].x << std::endl;
-			baseDTXT << singleBaseD[j].y << std::endl;
-			baseDTXT << "------" << std::endl;
-		}
-		baseDTXT.close();
-	}
-	catch (std::exception& e)
-	{
-		printf("baseDSave failure \n");
-	}
-}
-void imageProcess::setThreadBaseD()
-{
-	std::lock_guard<std::mutex> lock(mut);
-	threadBaseD = baseD;
-	singleBaseD = threadSingleBaseD;
-
 }

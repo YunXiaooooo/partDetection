@@ -21,7 +21,7 @@ public:
             catch(std::exception&e)
             {
                 printf("modbus_new_rtu failure \n");
-                std::exit(0);
+                std::exit(1);
             }
         }
     }
@@ -78,13 +78,13 @@ public:
             catch (std::exception& e)
             {
                 printf("New modbusRtuMaster Failure (%s) \n", e.what());
-                std::exit(0);
+                std::exit(1);
             }
             
             if (!tool->modbusRtuMasterInit())
             {
                 printf("modbusRtuMasterInit Failure \n");
-                std::exit(0);
+                std::exit(1);
             }
         }
     }
