@@ -18,6 +18,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
@@ -34,6 +35,8 @@ public:
     QPushButton *pushButton_2;
     QSpacerItem *horizontalSpacer_2;
     QGroupBox *groupBox_2;
+    QGridLayout *gridLayout_4;
+    QTextEdit *textEdit;
     QGroupBox *groupBox;
     QGridLayout *gridLayout_3;
     QLabel *label_10;
@@ -117,6 +120,15 @@ public:
         sizePolicy3.setVerticalStretch(1);
         sizePolicy3.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
         groupBox_2->setSizePolicy(sizePolicy3);
+        gridLayout_4 = new QGridLayout(groupBox_2);
+        gridLayout_4->setSpacing(6);
+        gridLayout_4->setContentsMargins(11, 11, 11, 11);
+        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
+        textEdit = new QTextEdit(groupBox_2);
+        textEdit->setObjectName(QString::fromUtf8("textEdit"));
+
+        gridLayout_4->addWidget(textEdit, 0, 0, 1, 1);
+
 
         gridLayout_2->addWidget(groupBox_2, 1, 1, 1, 1);
 

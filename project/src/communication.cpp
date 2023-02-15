@@ -6,6 +6,8 @@ bool modbusRtuMaster::modbusRtuMasterInit()
 	if (state != 0)
 	{
 		printf("modbus can not connect! [%d]\n", state);
+		ptrInfoBoardForTool->append("modbus can not connect!\n");
+		emit ptrInfoBoardForTool->waitPrint();
 		return false;
 	}
 	modbus_set_slave(md_rtu, id);  //设置modbus从机地址 
@@ -23,6 +25,8 @@ bool modbusRtuMaster::modbusRtuMasterInit()
 	if (tab_reg == nullptr)
 	{
 		printf("modbus slave [tenet] test failure (malloc failure) \n");
+		ptrInfoBoardForTool->append("modbus slave [tenet] test failure (malloc failure) \n");
+		emit ptrInfoBoardForTool->waitPrint();
 		return false;
 	}
 	if (tab_reg[0] == 1222)
@@ -34,6 +38,8 @@ bool modbusRtuMaster::modbusRtuMasterInit()
 	{
 		free(tab_reg);
 		printf("modbus slave [tenet] test failure (Data not equal) \n");
+		ptrInfoBoardForTool->append("modbus slave [tenet] test failure (Data not equal) \n");
+		emit ptrInfoBoardForTool->waitPrint();
 		return false;
 	}
 
@@ -53,6 +59,9 @@ void modbusRtuMaster::modbus_rtu_read(const int addr2, const int num)
 	if (regs != num)
 	{
 		printf("modbus_read_registers failure (libmodbus failure) \n");
+		ptrInfoBoardForTool->append("modbus_read_registers failure (libmodbus failure) \n");
+		emit ptrInfoBoardForTool->waitPrint();
+
 		free(tab_reg);
 
 		modbus_rtu_write(testAddr, 1222);
@@ -85,6 +94,8 @@ void modbusRtuMaster::modbus_rtu_write(const int addr2, const int value)
 	if (num != 1)
 	{
 		printf("modbus_write_register failure (libmodbus failure) \n");
+		ptrInfoBoardForTool->append("modbus_write_register failure (libmodbus failure) \n");
+		emit ptrInfoBoardForTool->waitPrint();
 	}
 	//std::cout << "modbus write over " << std::endl;
 }
@@ -94,6 +105,8 @@ void modbusRtuMaster::modbus_rtu_write_continue(const int addr2, const int nb, c
 	if (num != nb)
 	{
 		printf("modbus_write_registers failure (libmodbus failure) \n");
+		ptrInfoBoardForTool->append("modbus_write_registers failure (libmodbus failure) \n");
+		emit ptrInfoBoardForTool->waitPrint();
 	}
 	//std::cout << "modbus write over " << std::endl;
 }
@@ -105,12 +118,16 @@ void modbusRtuMaster::modbus_rtu_write_with_read(const int write_addr, const int
 	if (tab_reg == nullptr)
 	{
 		printf("modbus_rtu_read failure (malloc failure) \n");
+		ptrInfoBoardForTool->append("modbus_rtu_read failure (libmodbus failure) \n");
+		emit ptrInfoBoardForTool->waitPrint();
 		return;
 	}
 	int num = modbus_write_and_read_registers(md_rtu, write_addr, write_nb, src, read_addr, read_nb, tab_reg);
 	if (num != read_nb)
 	{
 		printf("modbus_write_and_read_registers failure (libmodbus failure) \n");
+		ptrInfoBoardForTool->append("modbus_write_and_read_registers failure (libmodbus failure) \n");
+		emit ptrInfoBoardForTool->waitPrint();
 	}
 	readData.clear();
 	for (int i = 0; i < read_nb; i++)
@@ -242,7 +259,9 @@ void communicationToolProxy::task()
 	int grabNum = ReceiveGrabSignal();
 	if (grabNum != -1)
 	{
-		printf("reeive grab signal, grabNum = %d \n", grabNum);
+		printf("receive grab signal, grabNum=%d \n", grabNum);
+		ptrInfoBoardForProxy->append("receive grab signal, grabNum=" + std::to_string(grabNum) + "\n");
+		emit ptrInfoBoardForProxy->waitPrint();
 		emit toGrab(grabNum);
 	}
 	
@@ -253,14 +272,18 @@ void communicationToolProxy::task()
 			if (i != 11)//最后一次抓拍完成信号暂时不给，在检测结果返回以后再给
 			{
 				sendGrabFinishedSignal(i);
-				printf("sendGrabFinishedSignal, i = %d \n", i);
+				printf("sendGrabFinishedSignal,i=%d \n", i);
+				ptrInfoBoardForProxy->append("sendGrabFinishedSignal,i=" + std::to_string(i) + "\n");
+				emit ptrInfoBoardForProxy->waitPrint();
 			}
 			grabFinishedFlags[i] = false;
 		}
 		if (clearFinishedFlags[i])
 		{
 			clearGrabFinishedSignal(i);
-			printf("clearGrabFinishedSignal, i = %d \n", i);
+			printf("clearGrabFinishedSignal, i=%d \n", i);
+			ptrInfoBoardForProxy->append("clearGrabFinishedSignal,i=" + std::to_string(i) + "\n");
+			emit ptrInfoBoardForProxy->waitPrint();
 			clearFinishedFlags[i] = false;
 		}
 	}

@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\desktop\work\inspection\main\project\x64\Release\qmake\temp;D:\Qt\Qt5.12.3\5.12.3\msvc2017_64\include;D:\Qt\Qt5.12.3\5.12.3\msvc2017_64\include\QtWidgets;D:\Qt\Qt5.12.3\5.12.3\msvc2017_64\include\QtGui;D:\Qt\Qt5.12.3\5.12.3\msvc2017_64\include\QtANGLE;D:\Qt\Qt5.12.3\5.12.3\msvc2017_64\include\QtCore;E:\desktop\work\inspection\main\project\x64\Release\qmake\temp;C:\VulkanSDK\1.0.51.0\include;D:\Qt\Qt5.12.3\5.12.3\msvc2017_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\desktop\work\injectionMoldingMachine\inspection\main_deeplearning\project\x64\Release\qmake\temp;D:\Qt\Qt5.12.3\5.12.3\msvc2017_64\include;D:\Qt\Qt5.12.3\5.12.3\msvc2017_64\include\QtWidgets;D:\Qt\Qt5.12.3\5.12.3\msvc2017_64\include\QtGui;D:\Qt\Qt5.12.3\5.12.3\msvc2017_64\include\QtANGLE;D:\Qt\Qt5.12.3\5.12.3\msvc2017_64\include\QtCore;E:\desktop\work\injectionMoldingMachine\inspection\main_deeplearning\project\x64\Release\qmake\temp;C:\VulkanSDK\1.0.51.0\include;D:\Qt\Qt5.12.3\5.12.3\msvc2017_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>.\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>

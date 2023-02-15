@@ -29,7 +29,7 @@ void imageProcess::realImageProcess(cv::Mat& src, const int grabNum, std::vector
 	cv::Mat grayRoiAboutFourParts, binaryRoiAboutFourParts;
 	double OTSU_threadNum = getRoiAboutFourParts(src, grayRoiAboutFourParts, binaryRoiAboutFourParts);
 
-	saveImage("grayRoiAboutFourParts" + std::to_string(grabNum) + ".bmp", grayRoiAboutFourParts);//保存原图方便debug
+	//saveImage("grayRoiAboutFourParts" + std::to_string(grabNum) + ".bmp", grayRoiAboutFourParts);//保存原图方便debug
 	printf("OTSU_threadValue: %f \n", OTSU_threadNum);
 	//if (OTSU_threadNum < OTSU_threadNumMin)//阈值过小，12孔位全部没有零件
 	//{
@@ -76,6 +76,18 @@ void imageProcess::realImageProcess(cv::Mat& src, const int grabNum, std::vector
 
 			std::vector<cv::Point2i> DCoordinates(2);
 			getTwoContactDHoleCoordinates(holeImage, DCoordinates);
+
+			double contactDistance = getDistance(DCoordinates[0], DCoordinates[1]);
+			printf("contactDistance = %f \n", contactDistance);
+			double realContactDistance = contactDistance * ratio;
+			printf("realContactDistance = %f \n", realContactDistance);
+
+			if (realContactDistance< distanceMin || realContactDistance > distanceMax) 
+			{
+				printf("realContactDistance NG!\n");
+				result[holeNum] = 4;
+				continue;
+			}
 
 			//上侧缺口
 			struct boxCoordinates upContactCoordiate;
@@ -273,7 +285,9 @@ void imageProcess::getTwoContactDHoleCoordinates(const cv::Mat& image, std::vect
 	if (contoursArea.size() < 2)
 	{
 		printf("getTwoContactDHoleCoordinates error: the image is abnormal! \n");
-		DCoordinates.clear();
+		DCoordinates[0] = D_hole_XY_in_single_part_image.read(0);
+		DCoordinates[1] = D_hole_XY_in_single_part_image.read(1);
+		//DCoordinates.clear();
 	}
 	else
 	{

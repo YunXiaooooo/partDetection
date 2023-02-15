@@ -1,0 +1,1039 @@
+External Cameras nums: [0]
+Init Camera Failure :ExternalCameraNum = 0, initFlag = 1
+receive grab signal, grabNum=0 
+image[indx].channels()==1 
+OTSU_threadValue: 106.000000 
+OTSU_threadNum for double hole : 98.000000 
+area: 445.000000 
+area: 441.500000 
+area: 372.500000 
+area: 360.000000 
+New D_XY_key_str[0] D_XY[0] :x=220.830200, y=120.596802 
+New D_XY_key_str[1] D_XY[1] :x=217.627899, y=392.364594 
+New D_XY_key_str[2] D_XY[2] :x=215.077713, y=577.636475 
+New D_XY_key_str[3] D_XY[3] :x=211.566605, y=849.602966 
+DCoordinates[0]: x=224, y=121 
+DCoordinates[1]: x=223, y=393 
+DCoordinates[2]: x=218, y=579 
+DCoordinates[3]: x=216, y=849 
+OTSU_threadNum for double hole : 108.000000 
+area: 398.000000 
+area: 379.000000 
+area: 346.000000 
+area: 327.000000 
+New D_XY_key_str[0] D_XY[0] :x=220.347183, y=119.937119 
+New D_XY_key_str[1] D_XY[1] :x=217.365112, y=391.728149 
+New D_XY_key_str[2] D_XY[2] :x=214.469940, y=577.172852 
+New D_XY_key_str[3] D_XY[3] :x=211.309937, y=848.842651 
+DCoordinates[0]: x=216, y=114 
+DCoordinates[1]: x=215, y=386 
+DCoordinates[2]: x=209, y=573 
+DCoordinates[3]: x=209, y=842 
+
+*************************************************
+contourArea(contours[i]) =  409.000000 
+contourArea(contours[i]) =  336.000000 
+area: 409.000000 
+area: 336.000000 
+New D_XY_key_str[0] D_XY[0] :x=214.169601, y=106.677299 
+New D_XY_key_str[1] D_XY[1] :x=217.062897, y=375.362396 
+contactDistance = 270.007416 
+realContactDistance = 261.297499 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  391.500000 
+contourArea(contours[i]) =  340.500000 
+area: 391.500000 
+area: 340.500000 
+New D_XY_key_str[0] D_XY[0] :x=213.652649, y=105.409569 
+New D_XY_key_str[1] D_XY[1] :x=216.256607, y=374.126160 
+contactDistance = 269.000000 
+realContactDistance = 260.322581 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  426.500000 
+contourArea(contours[i]) =  353.000000 
+area: 426.500000 
+area: 353.000000 
+New D_XY_key_str[0] D_XY[0] :x=214.687378, y=106.968613 
+New D_XY_key_str[1] D_XY[1] :x=216.930954, y=376.013550 
+contactDistance = 272.001831 
+realContactDistance = 263.227578 
+sendGrabFinishedSignal,i=0 
+UpClassAndProbability:0, 0.999999 
+DownClassAndProbability:0, 0.999999 
+
+*************************************************
+contourArea(contours[i]) =  367.500000 
+contourArea(contours[i]) =  319.000000 
+area: 367.500000 
+area: 319.000000 
+New D_XY_key_str[0] D_XY[0] :x=214.818634, y=107.671753 
+New D_XY_key_str[1] D_XY[1] :x=216.737854, y=377.012207 
+contactDistance = 272.001831 
+realContactDistance = 263.227578 
+UpClassAndProbability:0, 0.999999 
+DownClassAndProbability:0, 0.999998 
+imageProcess Running Time = 0.447000 
+image num = 0, location = 0 , state = 4
+image num = 0, location = 1 , state = 4
+image num = 0, location = 2 , state = 1
+image num = 0, location = 3 , state = 1
+clearGrabFinishedSignal, i=0 
+receive grab signal, grabNum=1 
+image[indx].channels()==1 
+OTSU_threadValue: 105.000000 
+OTSU_threadNum for double hole : 100.000000 
+area: 452.500000 
+area: 444.000000 
+area: 362.000000 
+area: 358.000000 
+New D_XY_key_str[0] D_XY[0] :x=220.912460, y=120.643410 
+New D_XY_key_str[1] D_XY[1] :x=218.028595, y=392.555328 
+New D_XY_key_str[2] D_XY[2] :x=215.022949, y=577.855591 
+New D_XY_key_str[3] D_XY[3] :x=211.978943, y=849.558411 
+DCoordinates[0]: x=226, y=127 
+DCoordinates[1]: x=224, y=400 
+DCoordinates[2]: x=220, y=584 
+DCoordinates[3]: x=218, y=856 
+OTSU_threadNum for double hole : 107.000000 
+area: 398.500000 
+area: 385.000000 
+area: 345.500000 
+area: 335.500000 
+area: 20.000000 
+New D_XY_key_str[0] D_XY[0] :x=220.821213, y=120.479073 
+New D_XY_key_str[1] D_XY[1] :x=217.725739, y=392.499786 
+New D_XY_key_str[2] D_XY[2] :x=214.820648, y=577.970032 
+New D_XY_key_str[3] D_XY[3] :x=211.081055, y=849.302551 
+DCoordinates[0]: x=220, y=119 
+DCoordinates[1]: x=215, y=392 
+DCoordinates[2]: x=213, y=579 
+DCoordinates[3]: x=203, y=847 
+
+*************************************************
+contourArea(contours[i]) =  399.500000 
+contourArea(contours[i]) =  325.000000 
+area: 399.500000 
+area: 325.000000 
+New D_XY_key_str[0] D_XY[0] :x=215.336777, y=106.104576 
+New D_XY_key_str[1] D_XY[1] :x=216.864075, y=375.710999 
+contactDistance = 272.007355 
+realContactDistance = 263.232924 
+UpClassAndProbability:0, 0.999989 
+DownClassAndProbability:0, 1.000000 
+
+*************************************************
+contourArea(contours[i]) =  395.000000 
+contourArea(contours[i]) =  341.500000 
+area: 395.000000 
+area: 341.500000 
+New D_XY_key_str[0] D_XY[0] :x=215.103104, y=104.894119 
+New D_XY_key_str[1] D_XY[1] :x=215.477661, y=374.339905 
+contactDistance = 268.186493 
+realContactDistance = 259.535316 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  440.500000 
+contourArea(contours[i]) =  45.500000 
+contourArea(contours[i]) =  354.000000 
+area: 440.500000 
+area: 354.000000 
+New D_XY_key_str[0] D_XY[0] :x=216.192795, y=107.104706 
+New D_XY_key_str[1] D_XY[1] :x=216.329895, y=377.005920 
+contactDistance = 274.007294 
+realContactDistance = 265.168349 
+sendGrabFinishedSignal,i=1 
+UpClassAndProbability:0, 1.000000 
+DownClassAndProbability:0, 0.999997 
+
+*************************************************
+contourArea(contours[i]) =  380.500000 
+contourArea(contours[i]) =  330.500000 
+area: 380.500000 
+area: 330.500000 
+New D_XY_key_str[0] D_XY[0] :x=216.473511, y=108.294235 
+New D_XY_key_str[1] D_XY[1] :x=216.196899, y=378.505341 
+contactDistance = 273.029297 
+realContactDistance = 264.221900 
+UpClassAndProbability:0, 0.999996 
+DownClassAndProbability:0, 0.999998 
+imageProcess Running Time = 0.436000 
+image num = 1, location = 12 , state = 1
+image num = 1, location = 13 , state = 4
+image num = 1, location = 14 , state = 1
+image num = 1, location = 15 , state = 1
+clearGrabFinishedSignal, i=1 
+receive grab signal, grabNum=2 
+image[indx].channels()==1 
+OTSU_threadValue: 107.000000 
+OTSU_threadNum for double hole : 101.000000 
+area: 464.500000 
+area: 426.500000 
+area: 356.500000 
+area: 350.500000 
+New D_XY_key_str[0] D_XY[0] :x=221.639099, y=121.031166 
+New D_XY_key_str[1] D_XY[1] :x=218.653168, y=392.849823 
+New D_XY_key_str[2] D_XY[2] :x=215.338577, y=578.373047 
+New D_XY_key_str[3] D_XY[3] :x=212.072952, y=849.672302 
+DCoordinates[0]: x=229, y=126 
+DCoordinates[1]: x=227, y=396 
+DCoordinates[2]: x=220, y=582 
+DCoordinates[3]: x=221, y=853 
+OTSU_threadNum for double hole : 109.000000 
+area: 392.500000 
+area: 391.500000 
+area: 353.500000 
+area: 335.000000 
+New D_XY_key_str[0] D_XY[0] :x=221.475189, y=120.828049 
+New D_XY_key_str[1] D_XY[1] :x=218.587845, y=392.864838 
+New D_XY_key_str[2] D_XY[2] :x=215.304718, y=578.335754 
+New D_XY_key_str[3] D_XY[3] :x=212.165665, y=849.805054 
+DCoordinates[0]: x=220, y=119 
+DCoordinates[1]: x=218, y=393 
+DCoordinates[2]: x=215, y=578 
+DCoordinates[3]: x=213, y=851 
+
+*************************************************
+contourArea(contours[i]) =  384.500000 
+contourArea(contours[i]) =  316.500000 
+area: 384.500000 
+area: 316.500000 
+New D_XY_key_str[0] D_XY[0] :x=216.826157, y=106.764809 
+New D_XY_key_str[1] D_XY[1] :x=216.677216, y=377.054810 
+contactDistance = 271.001831 
+realContactDistance = 262.259837 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  387.500000 
+contourArea(contours[i]) =  327.000000 
+area: 387.500000 
+area: 327.000000 
+New D_XY_key_str[0] D_XY[0] :x=216.643539, y=105.388329 
+New D_XY_key_str[1] D_XY[1] :x=216.309494, y=375.949341 
+contactDistance = 273.007324 
+realContactDistance = 264.200636 
+UpClassAndProbability:0, 0.999991 
+DownClassAndProbability:0, 0.999997 
+
+*************************************************
+contourArea(contours[i]) =  449.000000 
+contourArea(contours[i]) =  344.500000 
+area: 449.000000 
+area: 344.500000 
+New D_XY_key_str[0] D_XY[0] :x=217.879181, y=107.549500 
+New D_XY_key_str[1] D_XY[1] :x=217.378540, y=377.954407 
+contactDistance = 269.007446 
+realContactDistance = 260.329787 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  380.000000 
+contourArea(contours[i]) =  78.000000 
+contourArea(contours[i]) =  119.000000 
+contourArea(contours[i]) =  349.000000 
+area: 380.000000 
+area: 349.000000 
+New D_XY_key_str[0] D_XY[0] :x=218.091263, y=108.694550 
+New D_XY_key_str[1] D_XY[1] :x=217.440689, y=379.458954 
+contactDistance = 274.007294 
+realContactDistance = 265.168349 
+sendGrabFinishedSignal,i=2 
+UpClassAndProbability:0, 0.999998 
+DownClassAndProbability:0, 0.999999 
+imageProcess Running Time = 0.323000 
+image num = 2, location = 24 , state = 4
+image num = 2, location = 25 , state = 1
+image num = 2, location = 26 , state = 4
+image num = 2, location = 27 , state = 1
+clearGrabFinishedSignal, i=2 
+receive grab signal, grabNum=3 
+image[indx].channels()==1 
+OTSU_threadValue: 106.000000 
+OTSU_threadNum for double hole : 99.000000 
+area: 446.500000 
+area: 441.500000 
+area: 365.500000 
+area: 344.000000 
+area: 16.000000 
+New D_XY_key_str[0] D_XY[0] :x=221.827667, y=121.145241 
+New D_XY_key_str[1] D_XY[1] :x=218.629059, y=393.078369 
+New D_XY_key_str[2] D_XY[2] :x=215.474243, y=578.402161 
+New D_XY_key_str[3] D_XY[3] :x=212.449097, y=850.024536 
+DCoordinates[0]: x=225, y=124 
+DCoordinates[1]: x=219, y=395 
+DCoordinates[2]: x=217, y=579 
+DCoordinates[3]: x=215, y=852 
+OTSU_threadNum for double hole : 108.000000 
+area: 407.000000 
+area: 385.500000 
+area: 344.000000 
+area: 323.500000 
+New D_XY_key_str[0] D_XY[0] :x=221.144897, y=120.530716 
+New D_XY_key_str[1] D_XY[1] :x=218.066147, y=392.370544 
+New D_XY_key_str[2] D_XY[2] :x=214.926819, y=577.761963 
+New D_XY_key_str[3] D_XY[3] :x=211.904190, y=849.522095 
+DCoordinates[0]: x=215, y=115 
+DCoordinates[1]: x=213, y=386 
+DCoordinates[2]: x=210, y=572 
+DCoordinates[3]: x=207, y=845 
+
+*************************************************
+contourArea(contours[i]) =  440.000000 
+contourArea(contours[i]) =  363.000000 
+area: 440.000000 
+area: 363.000000 
+New D_XY_key_str[0] D_XY[0] :x=217.982132, y=107.025093 
+New D_XY_key_str[1] D_XY[1] :x=217.196625, y=378.013062 
+contactDistance = 273.007324 
+realContactDistance = 264.200636 
+UpClassAndProbability:0, 0.999994 
+DownClassAndProbability:0, 0.999999 
+
+*************************************************
+contourArea(contours[i]) =  402.500000 
+contourArea(contours[i]) =  20.000000 
+contourArea(contours[i]) =  338.000000 
+area: 402.500000 
+area: 338.000000 
+New D_XY_key_str[0] D_XY[0] :x=217.183914, y=105.622581 
+New D_XY_key_str[1] D_XY[1] :x=216.176956, y=376.811768 
+contactDistance = 273.016479 
+realContactDistance = 264.209496 
+sendGrabFinishedSignal,i=3 
+UpClassAndProbability:0, 0.999994 
+DownClassAndProbability:0, 0.999999 
+
+*************************************************
+contourArea(contours[i]) =  435.000000 
+contourArea(contours[i]) =  339.000000 
+area: 435.000000 
+area: 339.000000 
+New D_XY_key_str[0] D_XY[0] :x=217.965515, y=107.460327 
+New D_XY_key_str[1] D_XY[1] :x=216.459259, y=378.630585 
+contactDistance = 271.066406 
+realContactDistance = 262.322329 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  379.500000 
+contourArea(contours[i]) =  313.000000 
+area: 379.500000 
+area: 313.000000 
+New D_XY_key_str[0] D_XY[0] :x=217.668961, y=108.214294 
+New D_XY_key_str[1] D_XY[1] :x=216.113327, y=379.367523 
+contactDistance = 271.007385 
+realContactDistance = 262.265212 
+realContactDistance NG!
+imageProcess Running Time = 0.329000 
+image num = 3, location = 36 , state = 1
+image num = 3, location = 37 , state = 1
+image num = 3, location = 38 , state = 4
+image num = 3, location = 39 , state = 4
+clearGrabFinishedSignal, i=3 
+receive grab signal, grabNum=4 
+image[indx].channels()==1 
+OTSU_threadValue: 105.000000 
+OTSU_threadNum for double hole : 99.000000 
+area: 448.500000 
+area: 432.500000 
+area: 369.500000 
+area: 364.500000 
+area: 39.500000 
+New D_XY_key_str[0] D_XY[0] :x=221.730408, y=121.177643 
+New D_XY_key_str[1] D_XY[1] :x=218.459534, y=393.233490 
+New D_XY_key_str[2] D_XY[2] :x=215.534134, y=578.485779 
+New D_XY_key_str[3] D_XY[3] :x=211.913773, y=850.169861 
+DCoordinates[0]: x=227, y=127 
+DCoordinates[1]: x=222, y=401 
+DCoordinates[2]: x=221, y=585 
+DCoordinates[3]: x=212, y=856 
+OTSU_threadNum for double hole : 108.000000 
+area: 407.000000 
+area: 399.500000 
+area: 346.500000 
+area: 326.500000 
+area: 16.000000 
+New D_XY_key_str[0] D_XY[0] :x=221.257370, y=121.059875 
+New D_XY_key_str[1] D_XY[1] :x=218.113586, y=392.810150 
+New D_XY_key_str[2] D_XY[2] :x=215.180725, y=578.437195 
+New D_XY_key_str[3] D_XY[3] :x=211.822388, y=850.552856 
+DCoordinates[0]: x=217, y=120 
+DCoordinates[1]: x=215, y=389 
+DCoordinates[2]: x=212, y=578 
+DCoordinates[3]: x=211, y=854 
+
+*************************************************
+contourArea(contours[i]) =  428.500000 
+contourArea(contours[i]) =  16.000000 
+contourArea(contours[i]) =  363.500000 
+area: 428.500000 
+area: 363.500000 
+New D_XY_key_str[0] D_XY[0] :x=218.002060, y=106.592865 
+New D_XY_key_str[1] D_XY[1] :x=215.802002, y=377.730774 
+contactDistance = 271.118042 
+realContactDistance = 262.372299 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  397.500000 
+contourArea(contours[i]) =  344.500000 
+area: 397.500000 
+area: 344.500000 
+New D_XY_key_str[0] D_XY[0] :x=217.401855, y=105.433578 
+New D_XY_key_str[1] D_XY[1] :x=215.321808, y=377.057709 
+contactDistance = 276.001801 
+realContactDistance = 267.098517 
+sendGrabFinishedSignal,i=4 
+UpClassAndProbability:0, 0.999997 
+DownClassAndProbability:0, 0.999999 
+
+*************************************************
+contourArea(contours[i]) =  435.000000 
+contourArea(contours[i]) =  34.500000 
+contourArea(contours[i]) =  344.000000 
+area: 435.000000 
+area: 344.000000 
+New D_XY_key_str[0] D_XY[0] :x=218.361664, y=107.590218 
+New D_XY_key_str[1] D_XY[1] :x=215.989624, y=379.451935 
+contactDistance = 274.045624 
+realContactDistance = 265.205442 
+UpClassAndProbability:0, 1.000000 
+DownClassAndProbability:0, 0.999997 
+
+*************************************************
+contourArea(contours[i]) =  395.500000 
+contourArea(contours[i]) =  312.500000 
+area: 395.500000 
+area: 312.500000 
+New D_XY_key_str[0] D_XY[0] :x=218.225494, y=108.831192 
+New D_XY_key_str[1] D_XY[1] :x=215.890656, y=380.406738 
+contactDistance = 269.007446 
+realContactDistance = 260.329787 
+realContactDistance NG!
+imageProcess Running Time = 0.349000 
+image num = 4, location = 48 , state = 4
+image num = 4, location = 49 , state = 1
+image num = 4, location = 50 , state = 1
+image num = 4, location = 51 , state = 4
+clearGrabFinishedSignal, i=4 
+receive grab signal, grabNum=5 
+image[indx].channels()==1 
+OTSU_threadValue: 108.000000 
+OTSU_threadNum for double hole : 101.000000 
+area: 466.500000 
+area: 434.500000 
+area: 361.000000 
+area: 353.000000 
+area: 16.000000 
+New D_XY_key_str[0] D_XY[0] :x=222.031631, y=121.553886 
+New D_XY_key_str[1] D_XY[1] :x=219.002228, y=392.929138 
+New D_XY_key_str[2] D_XY[2] :x=215.762650, y=578.893494 
+New D_XY_key_str[3] D_XY[3] :x=213.340149, y=850.997559 
+DCoordinates[0]: x=229, y=126 
+DCoordinates[1]: x=227, y=394 
+DCoordinates[2]: x=221, y=583 
+DCoordinates[3]: x=227, y=855 
+OTSU_threadNum for double hole : 111.000000 
+area: 400.500000 
+area: 389.500000 
+area: 331.500000 
+area: 328.000000 
+area: 16.000000 
+New D_XY_key_str[0] D_XY[0] :x=222.128464, y=121.698502 
+New D_XY_key_str[1] D_XY[1] :x=218.902008, y=393.136230 
+New D_XY_key_str[2] D_XY[2] :x=215.586380, y=578.904175 
+New D_XY_key_str[3] D_XY[3] :x=213.606140, y=850.997803 
+DCoordinates[0]: x=223, y=123 
+DCoordinates[1]: x=218, y=395 
+DCoordinates[2]: x=214, y=579 
+DCoordinates[3]: x=216, y=851 
+
+*************************************************
+contourArea(contours[i]) =  432.500000 
+contourArea(contours[i]) =  358.500000 
+area: 432.500000 
+area: 358.500000 
+New D_XY_key_str[0] D_XY[0] :x=218.502945, y=107.448074 
+New D_XY_key_str[1] D_XY[1] :x=217.001587, y=379.066071 
+contactDistance = 272.066162 
+realContactDistance = 263.289834 
+UpClassAndProbability:0, 0.999992 
+DownClassAndProbability:0, 0.999999 
+
+*************************************************
+contourArea(contours[i]) =  393.500000 
+contourArea(contours[i]) =  327.500000 
+area: 393.500000 
+area: 327.500000 
+New D_XY_key_str[0] D_XY[0] :x=218.052643, y=105.903267 
+New D_XY_key_str[1] D_XY[1] :x=216.901428, y=377.459473 
+contactDistance = 271.007385 
+realContactDistance = 262.265212 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  441.500000 
+contourArea(contours[i]) =  337.500000 
+area: 441.500000 
+area: 337.500000 
+New D_XY_key_str[0] D_XY[0] :x=219.147385, y=107.912941 
+New D_XY_key_str[1] D_XY[1] :x=217.811279, y=379.113525 
+contactDistance = 268.016785 
+realContactDistance = 259.371082 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  379.500000 
+contourArea(contours[i]) =  312.500000 
+area: 379.500000 
+area: 312.500000 
+New D_XY_key_str[0] D_XY[0] :x=219.532654, y=109.321648 
+New D_XY_key_str[1] D_XY[1] :x=217.830154, y=380.702179 
+contactDistance = 273.045776 
+realContactDistance = 264.237848 
+sendGrabFinishedSignal,i=5 
+UpClassAndProbability:0, 0.999997 
+DownClassAndProbability:0, 0.999998 
+imageProcess Running Time = 0.328000 
+image num = 5, location = 60 , state = 1
+image num = 5, location = 61 , state = 4
+image num = 5, location = 62 , state = 4
+image num = 5, location = 63 , state = 1
+clearGrabFinishedSignal, i=5 
+receive grab signal, grabNum=6 
+image[indx].channels()==1 
+OTSU_threadValue: 103.000000 
+OTSU_threadNum for double hole : 96.000000 
+area: 449.500000 
+area: 428.000000 
+area: 376.000000 
+area: 356.500000 
+area: 16.000000 
+New D_XY_key_str[0] D_XY[0] :x=222.415619, y=122.028648 
+New D_XY_key_str[1] D_XY[1] :x=218.711807, y=393.522614 
+New D_XY_key_str[2] D_XY[2] :x=215.327744, y=579.113770 
+New D_XY_key_str[3] D_XY[3] :x=214.345520, y=851.098022 
+DCoordinates[0]: x=225, y=125 
+DCoordinates[1]: x=217, y=397 
+DCoordinates[2]: x=213, y=581 
+DCoordinates[3]: x=221, y=852 
+OTSU_threadNum for double hole : 108.000000 
+area: 396.000000 
+area: 364.000000 
+area: 340.000000 
+area: 337.500000 
+New D_XY_key_str[0] D_XY[0] :x=222.374054, y=121.725784 
+New D_XY_key_str[1] D_XY[1] :x=217.840622, y=393.770355 
+New D_XY_key_str[2] D_XY[2] :x=214.594971, y=579.002380 
+New D_XY_key_str[3] D_XY[3] :x=213.410965, y=850.788208 
+DCoordinates[0]: x=222, y=119 
+DCoordinates[1]: x=210, y=396 
+DCoordinates[2]: x=208, y=578 
+DCoordinates[3]: x=205, y=848 
+
+*************************************************
+contourArea(contours[i]) =  384.500000 
+contourArea(contours[i]) =  338.000000 
+area: 384.500000 
+area: 338.000000 
+New D_XY_key_str[0] D_XY[0] :x=218.879395, y=107.589485 
+New D_XY_key_str[1] D_XY[1] :x=218.147141, y=378.931946 
+contactDistance = 271.118042 
+realContactDistance = 262.372299 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  387.500000 
+contourArea(contours[i]) =  336.000000 
+area: 387.500000 
+area: 336.000000 
+New D_XY_key_str[0] D_XY[0] :x=217.791458, y=105.930534 
+New D_XY_key_str[1] D_XY[1] :x=216.832428, y=377.138763 
+contactDistance = 270.016663 
+realContactDistance = 261.306448 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  447.500000 
+contourArea(contours[i]) =  353.500000 
+area: 447.500000 
+area: 353.500000 
+New D_XY_key_str[0] D_XY[0] :x=218.512314, y=107.837479 
+New D_XY_key_str[1] D_XY[1] :x=216.849182, y=379.124878 
+contactDistance = 272.117615 
+realContactDistance = 263.339627 
+UpClassAndProbability:0, 1.000000 
+DownClassAndProbability:0, 0.999999 
+
+*************************************************
+contourArea(contours[i]) =  360.000000 
+contourArea(contours[i]) =  20.000000 
+contourArea(contours[i]) =  317.000000 
+area: 360.000000 
+area: 317.000000 
+New D_XY_key_str[0] D_XY[0] :x=218.861084, y=108.953728 
+New D_XY_key_str[1] D_XY[1] :x=216.164261, y=380.812378 
+contactDistance = 277.259796 
+realContactDistance = 268.315932 
+sendGrabFinishedSignal,i=6 
+UpClassAndProbability:0, 0.999999 
+DownClassAndProbability:0, 0.999996 
+imageProcess Running Time = 0.324000 
+image num = 6, location = 72 , state = 4
+image num = 6, location = 73 , state = 4
+image num = 6, location = 74 , state = 1
+image num = 6, location = 75 , state = 1
+clearGrabFinishedSignal, i=6 
+receive grab signal, grabNum=7 
+image[indx].channels()==1 
+OTSU_threadValue: 105.000000 
+OTSU_threadNum for double hole : 99.000000 
+area: 446.500000 
+area: 445.000000 
+area: 377.500000 
+area: 347.000000 
+area: 24.000000 
+area: 16.000000 
+New D_XY_key_str[0] D_XY[0] :x=222.436646, y=121.753204 
+New D_XY_key_str[1] D_XY[1] :x=218.256561, y=393.893311 
+New D_XY_key_str[2] D_XY[2] :x=215.235474, y=579.102173 
+New D_XY_key_str[3] D_XY[3] :x=212.969864, y=851.009399 
+DCoordinates[0]: x=223, y=122 
+DCoordinates[1]: x=222, y=395 
+DCoordinates[2]: x=221, y=580 
+DCoordinates[3]: x=209, y=853 
+OTSU_threadNum for double hole : 108.000000 
+area: 394.000000 
+area: 367.000000 
+area: 327.000000 
+area: 318.500000 
+area: 32.500000 
+New D_XY_key_str[0] D_XY[0] :x=221.692978, y=120.677887 
+New D_XY_key_str[1] D_XY[1] :x=218.130905, y=393.503967 
+New D_XY_key_str[2] D_XY[2] :x=215.011932, y=578.191956 
+New D_XY_key_str[3] D_XY[3] :x=212.772873, y=850.708435 
+DCoordinates[0]: x=215, y=111 
+DCoordinates[1]: x=217, y=390 
+DCoordinates[2]: x=213, y=570 
+DCoordinates[3]: x=211, y=848 
+
+*************************************************
+contourArea(contours[i]) =  430.500000 
+contourArea(contours[i]) =  368.500000 
+contourArea(contours[i]) =  16.000000 
+area: 430.500000 
+area: 368.500000 
+New D_XY_key_str[0] D_XY[0] :x=219.074982, y=107.358353 
+New D_XY_key_str[1] D_XY[1] :x=215.447830, y=379.331146 
+contactDistance = 273.263611 
+realContactDistance = 264.448656 
+UpClassAndProbability:0, 0.999962 
+DownClassAndProbability:0, 0.999999 
+
+*************************************************
+contourArea(contours[i]) =  388.000000 
+contourArea(contours[i]) =  20.000000 
+contourArea(contours[i]) =  312.000000 
+area: 388.000000 
+area: 312.000000 
+New D_XY_key_str[0] D_XY[0] :x=218.467484, y=105.622520 
+New D_XY_key_str[1] D_XY[1] :x=215.003052, y=378.098022 
+contactDistance = 277.007233 
+realContactDistance = 268.071515 
+sendGrabFinishedSignal,i=7 
+UpClassAndProbability:0, 0.999997 
+DownClassAndProbability:0, 0.999997 
+
+*************************************************
+contourArea(contours[i]) =  430.000000 
+contourArea(contours[i]) =  344.500000 
+area: 430.000000 
+area: 344.500000 
+New D_XY_key_str[0] D_XY[0] :x=218.920731, y=107.260269 
+New D_XY_key_str[1] D_XY[1] :x=215.602753, y=379.788208 
+contactDistance = 273.007324 
+realContactDistance = 264.200636 
+UpClassAndProbability:0, 1.000000 
+DownClassAndProbability:0, 0.999993 
+
+*************************************************
+contourArea(contours[i]) =  365.000000 
+contourArea(contours[i]) =  317.000000 
+area: 365.000000 
+area: 317.000000 
+New D_XY_key_str[0] D_XY[0] :x=218.528656, y=107.634239 
+New D_XY_key_str[1] D_XY[1] :x=215.742477, y=380.809387 
+contactDistance = 279.007172 
+realContactDistance = 270.006940 
+UpClassAndProbability:0, 0.999997 
+DownClassAndProbability:0, 0.999979 
+imageProcess Running Time = 0.550000 
+image num = 7, location = 84 , state = 1
+image num = 7, location = 85 , state = 1
+image num = 7, location = 86 , state = 1
+image num = 7, location = 87 , state = 1
+clearGrabFinishedSignal, i=7 
+receive grab signal, grabNum=8 
+image[indx].channels()==1 
+OTSU_threadValue: 106.000000 
+OTSU_threadNum for double hole : 99.000000 
+area: 466.500000 
+area: 456.000000 
+area: 378.000000 
+area: 356.500000 
+New D_XY_key_str[0] D_XY[0] :x=222.223679, y=120.610100 
+New D_XY_key_str[1] D_XY[1] :x=218.717819, y=393.353577 
+New D_XY_key_str[2] D_XY[2] :x=216.210739, y=578.472778 
+New D_XY_key_str[3] D_XY[3] :x=213.795593, y=850.937622 
+DCoordinates[0]: x=227, y=120 
+DCoordinates[1]: x=224, y=392 
+DCoordinates[2]: x=227, y=581 
+DCoordinates[3]: x=223, y=853 
+OTSU_threadNum for double hole : 109.000000 
+area: 406.500000 
+area: 390.000000 
+area: 333.000000 
+area: 314.500000 
+area: 24.000000 
+area: 16.000000 
+New D_XY_key_str[0] D_XY[0] :x=221.901306, y=120.249092 
+New D_XY_key_str[1] D_XY[1] :x=218.846039, y=392.918213 
+New D_XY_key_str[2] D_XY[2] :x=216.989670, y=578.125488 
+New D_XY_key_str[3] D_XY[3] :x=213.516037, y=850.843872 
+DCoordinates[0]: x=219, y=117 
+DCoordinates[1]: x=220, y=389 
+DCoordinates[2]: x=224, y=575 
+DCoordinates[3]: x=211, y=850 
+
+*************************************************
+contourArea(contours[i]) =  451.500000 
+contourArea(contours[i]) =  374.000000 
+area: 451.500000 
+area: 374.000000 
+New D_XY_key_str[0] D_XY[0] :x=219.375793, y=106.370819 
+New D_XY_key_str[1] D_XY[1] :x=216.468231, y=379.428436 
+contactDistance = 272.029419 
+realContactDistance = 263.254276 
+sendGrabFinishedSignal,i=8 
+UpClassAndProbability:0, 0.999994 
+DownClassAndProbability:0, 0.999999 
+
+*************************************************
+contourArea(contours[i]) =  400.000000 
+contourArea(contours[i]) =  309.500000 
+area: 400.000000 
+area: 309.500000 
+New D_XY_key_str[0] D_XY[0] :x=219.838211, y=105.033737 
+New D_XY_key_str[1] D_XY[1] :x=215.921402, y=378.285583 
+contactDistance = 275.307098 
+realContactDistance = 266.426224 
+UpClassAndProbability:0, 0.999992 
+DownClassAndProbability:0, 0.999992 
+
+*************************************************
+contourArea(contours[i]) =  450.000000 
+contourArea(contours[i]) =  338.500000 
+area: 450.000000 
+area: 338.500000 
+New D_XY_key_str[0] D_XY[0] :x=220.554382, y=106.530365 
+New D_XY_key_str[1] D_XY[1] :x=216.729263, y=379.657013 
+contactDistance = 272.016541 
+realContactDistance = 263.241813 
+UpClassAndProbability:0, 1.000000 
+DownClassAndProbability:0, 0.999997 
+
+*************************************************
+contourArea(contours[i]) =  378.500000 
+contourArea(contours[i]) =  323.000000 
+area: 378.500000 
+area: 323.000000 
+New D_XY_key_str[0] D_XY[0] :x=220.398941, y=107.577332 
+New D_XY_key_str[1] D_XY[1] :x=217.056335, y=380.591309 
+contactDistance = 272.001831 
+realContactDistance = 263.227578 
+UpClassAndProbability:0, 0.999999 
+DownClassAndProbability:0, 0.999988 
+imageProcess Running Time = 0.572000 
+image num = 8, location = 96 , state = 1
+image num = 8, location = 97 , state = 1
+image num = 8, location = 98 , state = 1
+image num = 8, location = 99 , state = 1
+clearGrabFinishedSignal, i=8 
+receive grab signal, grabNum=9 
+image[indx].channels()==1 
+OTSU_threadValue: 105.000000 
+OTSU_threadNum for double hole : 102.000000 
+area: 460.500000 
+area: 446.500000 
+area: 380.000000 
+area: 342.000000 
+area: 20.000000 
+New D_XY_key_str[0] D_XY[0] :x=222.111176, y=120.124184 
+New D_XY_key_str[1] D_XY[1] :x=218.361435, y=392.626404 
+New D_XY_key_str[2] D_XY[2] :x=216.790710, y=578.012939 
+New D_XY_key_str[3] D_XY[3] :x=213.364441, y=850.359497 
+DCoordinates[0]: x=224, y=119 
+DCoordinates[1]: x=214, y=390 
+DCoordinates[2]: x=215, y=577 
+DCoordinates[3]: x=212, y=846 
+OTSU_threadNum for double hole : 106.000000 
+area: 406.500000 
+area: 387.000000 
+area: 334.500000 
+area: 329.000000 
+area: 24.000000 
+area: 16.000000 
+New D_XY_key_str[0] D_XY[0] :x=221.100052, y=119.211761 
+New D_XY_key_str[1] D_XY[1] :x=217.925293, y=391.763763 
+New D_XY_key_str[2] D_XY[2] :x=215.511642, y=577.111633 
+New D_XY_key_str[3] D_XY[3] :x=213.127991, y=849.523560 
+DCoordinates[0]: x=212, y=111 
+DCoordinates[1]: x=214, y=384 
+DCoordinates[2]: x=204, y=569 
+DCoordinates[3]: x=211, y=842 
+
+*************************************************
+contourArea(contours[i]) =  444.500000 
+contourArea(contours[i]) =  369.000000 
+area: 444.500000 
+area: 369.000000 
+New D_XY_key_str[0] D_XY[0] :x=219.859039, y=106.219597 
+New D_XY_key_str[1] D_XY[1] :x=216.550705, y=378.932190 
+contactDistance = 270.016663 
+realContactDistance = 261.306448 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  401.000000 
+contourArea(contours[i]) =  28.500000 
+contourArea(contours[i]) =  328.000000 
+area: 401.000000 
+area: 328.000000 
+New D_XY_key_str[0] D_XY[0] :x=218.273132, y=104.897636 
+New D_XY_key_str[1] D_XY[1] :x=215.995636, y=377.638977 
+contactDistance = 273.089722 
+realContactDistance = 264.280376 
+UpClassAndProbability:0, 0.999997 
+DownClassAndProbability:0, 0.999999 
+
+*************************************************
+contourArea(contours[i]) =  432.500000 
+contourArea(contours[i]) =  331.000000 
+area: 432.500000 
+area: 331.000000 
+New D_XY_key_str[0] D_XY[0] :x=218.845825, y=106.307877 
+New D_XY_key_str[1] D_XY[1] :x=215.796066, y=378.875092 
+contactDistance = 271.184448 
+realContactDistance = 262.436563 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  381.000000 
+contourArea(contours[i]) =  321.500000 
+area: 381.000000 
+area: 321.500000 
+New D_XY_key_str[0] D_XY[0] :x=218.161240, y=106.777092 
+New D_XY_key_str[1] D_XY[1] :x=215.616455, y=379.387573 
+contactDistance = 273.007324 
+realContactDistance = 264.200636 
+sendGrabFinishedSignal,i=9 
+UpClassAndProbability:0, 0.999999 
+DownClassAndProbability:0, 0.999973 
+imageProcess Running Time = 0.328000 
+image num = 9, location = 108 , state = 4
+image num = 9, location = 109 , state = 1
+image num = 9, location = 110 , state = 4
+image num = 9, location = 111 , state = 1
+clearGrabFinishedSignal, i=9 
+receive grab signal, grabNum=10 
+image[indx].channels()==1 
+OTSU_threadValue: 106.000000 
+OTSU_threadNum for double hole : 99.000000 
+area: 443.500000 
+area: 435.500000 
+area: 370.000000 
+area: 345.500000 
+area: 37.000000 
+New D_XY_key_str[0] D_XY[0] :x=221.490051, y=119.890587 
+New D_XY_key_str[1] D_XY[1] :x=217.732758, y=392.387390 
+New D_XY_key_str[2] D_XY[2] :x=215.260483, y=577.600464 
+New D_XY_key_str[3] D_XY[3] :x=213.315186, y=850.071228 
+DCoordinates[0]: x=225, y=126 
+DCoordinates[1]: x=216, y=398 
+DCoordinates[2]: x=213, y=582 
+DCoordinates[3]: x=215, y=855 
+OTSU_threadNum for double hole : 108.000000 
+area: 401.000000 
+area: 385.000000 
+area: 339.500000 
+area: 322.500000 
+area: 28.000000 
+area: 20.000000 
+New D_XY_key_str[0] D_XY[0] :x=220.841049, y=119.701530 
+New D_XY_key_str[1] D_XY[1] :x=217.259476, y=392.148651 
+New D_XY_key_str[2] D_XY[2] :x=214.334442, y=577.140442 
+New D_XY_key_str[3] D_XY[3] :x=212.783661, y=849.564087 
+DCoordinates[0]: x=215, y=118 
+DCoordinates[1]: x=213, y=390 
+DCoordinates[2]: x=206, y=573 
+DCoordinates[3]: x=208, y=845 
+
+*************************************************
+contourArea(contours[i]) =  432.500000 
+contourArea(contours[i]) =  66.000000 
+contourArea(contours[i]) =  358.500000 
+area: 432.500000 
+area: 358.500000 
+New D_XY_key_str[0] D_XY[0] :x=217.645111, y=105.299385 
+New D_XY_key_str[1] D_XY[1] :x=215.554810, y=377.948822 
+contactDistance = 273.007324 
+realContactDistance = 264.200636 
+UpClassAndProbability:0, 0.999997 
+DownClassAndProbability:0, 1.000000 
+
+*************************************************
+contourArea(contours[i]) =  392.000000 
+contourArea(contours[i]) =  319.000000 
+area: 392.000000 
+area: 319.000000 
+New D_XY_key_str[0] D_XY[0] :x=216.480606, y=103.969444 
+New D_XY_key_str[1] D_XY[1] :x=214.799332, y=376.553955 
+contactDistance = 272.007355 
+realContactDistance = 263.232924 
+sendGrabFinishedSignal,i=10 
+UpClassAndProbability:0, 0.999994 
+DownClassAndProbability:0, 0.999998 
+
+*************************************************
+contourArea(contours[i]) =  428.500000 
+contourArea(contours[i]) =  342.000000 
+area: 428.500000 
+area: 342.000000 
+New D_XY_key_str[0] D_XY[0] :x=217.332550, y=106.172501 
+New D_XY_key_str[1] D_XY[1] :x=214.919403, y=378.598572 
+contactDistance = 271.149414 
+realContactDistance = 262.402659 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  371.500000 
+contourArea(contours[i]) =  327.500000 
+area: 371.500000 
+area: 327.500000 
+New D_XY_key_str[0] D_XY[0] :x=217.099289, y=107.355247 
+New D_XY_key_str[1] D_XY[1] :x=214.727463, y=379.738708 
+contactDistance = 272.007355 
+realContactDistance = 263.232924 
+UpClassAndProbability:0, 0.999999 
+DownClassAndProbability:0, 0.999993 
+imageProcess Running Time = 0.458000 
+image num = 10, location = 120 , state = 1
+image num = 10, location = 121 , state = 1
+image num = 10, location = 122 , state = 4
+image num = 10, location = 123 , state = 1
+clearGrabFinishedSignal, i=10 
+receive grab signal, grabNum=11 
+image[indx].channels()==1 
+OTSU_threadValue: 107.000000 
+OTSU_threadNum for double hole : 99.000000 
+area: 451.500000 
+area: 445.500000 
+area: 365.500000 
+area: 358.500000 
+New D_XY_key_str[0] D_XY[0] :x=221.056946, y=120.031380 
+New D_XY_key_str[1] D_XY[1] :x=217.733521, y=392.433777 
+New D_XY_key_str[2] D_XY[2] :x=215.300995, y=577.126404 
+New D_XY_key_str[3] D_XY[3] :x=213.105301, y=850.207703 
+DCoordinates[0]: x=223, y=123 
+DCoordinates[1]: x=222, y=395 
+DCoordinates[2]: x=224, y=577 
+DCoordinates[3]: x=216, y=856 
+OTSU_threadNum for double hole : 109.000000 
+area: 404.000000 
+area: 398.000000 
+area: 322.500000 
+area: 318.000000 
+area: 28.000000 
+New D_XY_key_str[0] D_XY[0] :x=220.851257, y=120.028244 
+New D_XY_key_str[1] D_XY[1] :x=217.060165, y=392.190399 
+New D_XY_key_str[2] D_XY[2] :x=214.970901, y=577.013794 
+New D_XY_key_str[3] D_XY[3] :x=212.894775, y=850.186951 
+DCoordinates[0]: x=219, y=120 
+DCoordinates[1]: x=211, y=390 
+DCoordinates[2]: x=212, y=576 
+DCoordinates[3]: x=211, y=850 
+
+*************************************************
+contourArea(contours[i]) =  445.000000 
+contourArea(contours[i]) =  355.500000 
+area: 445.000000 
+area: 355.500000 
+New D_XY_key_str[0] D_XY[0] :x=217.789368, y=105.719727 
+New D_XY_key_str[1] D_XY[1] :x=214.854721, y=378.764832 
+contactDistance = 279.114685 
+realContactDistance = 270.110986 
+UpClassAndProbability:0, 0.999995 
+DownClassAndProbability:0, 1.000000 
+
+*************************************************
+contourArea(contours[i]) =  385.500000 
+contourArea(contours[i]) =  314.500000 
+area: 385.500000 
+area: 314.500000 
+New D_XY_key_str[0] D_XY[0] :x=217.210434, y=104.447754 
+New D_XY_key_str[1] D_XY[1] :x=214.469254, y=377.488342 
+contactDistance = 273.001831 
+realContactDistance = 264.195320 
+UpClassAndProbability:0, 0.999997 
+DownClassAndProbability:0, 0.999996 
+
+*************************************************
+contourArea(contours[i]) =  439.500000 
+contourArea(contours[i]) =  353.500000 
+area: 439.500000 
+area: 353.500000 
+New D_XY_key_str[0] D_XY[0] :x=217.789398, y=106.402977 
+New D_XY_key_str[1] D_XY[1] :x=215.222321, y=379.239502 
+contactDistance = 271.001831 
+realContactDistance = 262.259837 
+realContactDistance NG!
+
+*************************************************
+contourArea(contours[i]) =  390.500000 
+contourArea(contours[i]) =  316.000000 
+area: 390.500000 
+area: 316.000000 
+New D_XY_key_str[0] D_XY[0] :x=217.910461, y=107.762680 
+New D_XY_key_str[1] D_XY[1] :x=214.800095, y=380.315552 
+contactDistance = 270.118500 
+realContactDistance = 261.405000 
+realContactDistance NG!
+imageProcess Running Time = 0.322000 
+image num = 11, location = 132 , state = 1
+image num = 11, location = 133 , state = 1
+image num = 11, location = 134 , state = 4
+image num = 11, location = 135 , state = 4
+/**********************************************************************/
+4    4    1    1    
+1    4    1    1    
+4    1    4    1    
+1    1    4    4    
+4    1    1    4    
+1    4    4    1    
+4    4    1    1    
+1    1    1    1    
+1    1    1    1    
+4    1    4    1    
+1    1    4    1    
+1    1    4    4    
+/**********************************************************************/
+ 
+clearGrabFinishedSignal, i=11 
+myTimerÎö¹¹ 
+modbusRtuMaster Îö¹¹ 
+CameraDriveÎö¹¹ 

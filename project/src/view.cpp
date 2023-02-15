@@ -1,5 +1,7 @@
 #include "view.h"
 #include <filesystem>
+#include <QtWidgets/QApplication>
+#include <QMessageBox>
 
 view::view(QWidget *parent)
     : QMainWindow(parent)
@@ -20,10 +22,24 @@ void view::siganlsConnectInit()
     connect(this, SIGNAL(oneImageProcess(cv::Mat&, int)), ptrProcessControl.get(), SLOT(enqueue(cv::Mat&, int)));
     connect(this, SIGNAL(readyToReply()), this, SLOT(prepareToReply()));
     connect(ptrCommunicationToolProxy.get(), SIGNAL(toGrab(int)), this, SLOT(grab(int)));
+    connect(ptrInfoBoard.get(), SIGNAL(waitPrint()), ptrInfoBoard.get(), SLOT(printInfo()));
 }
 void view::Init()
-{
+{   
+    //infoBoard初始化
+    if (ptrInfoBoard == nullptr)
+    {
+        try {
+            ptrInfoBoard = std::make_shared<infoBoard>(ui.textEdit);
+        }
+        catch (std::exception& e)
+        {
+            printf("New infoBoard Failure (%s)\n", e.what());
+            std::exit(1);
+        }
+    }
     //相机初始化
+    //相机初始化失败弹出窗口提示，通信出问题在text组件内提示
     if (ptrMyCameras == nullptr)
     {
         try {
@@ -32,7 +48,8 @@ void view::Init()
         catch (std::exception& e)
         {
             printf("New Camera Failure (%s)\n", e.what());
-            //std::exit(1);//abort不做任何释放，exit会做部分清理
+            QMessageBox::critical(NULL, QStringLiteral("error"), QStringLiteral("New Camera Failure"), QMessageBox::Yes);
+            std::exit(1);//abort不做任何释放，exit会做部分清理
         }
     }
     try {
@@ -41,14 +58,18 @@ void view::Init()
         if (ExternalCameraNum < 1 || initFlag == false)
         {
             printf("Init Camera Failure :ExternalCameraNum = %d, initFlag = %d\n", ExternalCameraNum, initFlag);
-            //std::exit(1);
+            QMessageBox::critical(NULL, QStringLiteral("error"), QStringLiteral("Init Camera Failure"), QMessageBox::Yes);
+            #ifndef TEST
+            std::exit(1);
+            #endif
         }
 
     }
     catch (std::exception& e)
     {
         printf("Init Camera Failure (%s)\n", e.what());
-        //std::exit(1);
+        QMessageBox::critical(NULL, QStringLiteral("error"), QStringLiteral("Init Camera Failure"), QMessageBox::Yes);
+        std::exit(1);
     }
 
     if (ptrProcessControl == nullptr)
@@ -59,13 +80,15 @@ void view::Init()
         catch (std::exception& e)
         {
             printf("New processControl Failure (%s)\n", e.what());
+            //与外设无关，提示给用户没有太大价值
+            //QMessageBox::critical(NULL, QStringLiteral("error"), QStringLiteral("New processControl Failure"), QMessageBox::Yes);
             std::exit(1);
         }
     }
     if (ptrCommunicationToolProxy == nullptr)
     {
         try {
-            ptrCommunicationToolProxy = std::make_shared<communicationToolProxy>();
+            ptrCommunicationToolProxy = std::make_shared<communicationToolProxy>(ptrInfoBoard);
         }
         catch (std::exception& e)
         {
@@ -170,40 +193,43 @@ int getFileNumber(std::string folderPath) //需要c++17标准，此文件使用c++17编译
 void view::grab(int grabNum)
 {
     static int imageNum = getFileNumber("./grabPic/0");
-    //try
-    //{
-    //    printf("waitting grab \n");
-    //    image[grabNum] = ptrMyCameras->grabForSoftTriggerMode(0);//传入0是因为仅有一个相机
-    //    printf("grab finished \n");
-    //}
-    //catch (std::exception& e)
-    //{
-    //    printf("grabForSoftTrigger failure! (%s) \n", e.what());
-    //    std::exit(1);
-    //}
-    //try{
-    //    cv::imwrite("./grabPic/" + std::to_string(grabNum) + "/" + std::to_string(imageNum) + ".bmp", image[grabNum]);
-    //}
-    //catch (std::exception& e)
-    //{
-    //    printf("save the grab image failure! (%s) \n", e.what());
-    //}
-    //ptrCommunicationToolProxy->setGrabFinishedFlag(true, grabNum);
-    //emit oneImageProcess(image[grabNum], grabNum);
-    //emit oneImageDispaly(grabNum);
+    #ifndef TEST
+    try
+    {
+        printf("waitting grab \n");
+        image[grabNum] = ptrMyCameras->grabForSoftTriggerMode(0);//传入0是因为仅有一个相机
+        printf("grab finished \n");
+    }
+    catch (std::exception& e)
+    {
+        printf("grabForSoftTrigger failure! (%s) \n", e.what());
+        QMessageBox::critical(NULL, QStringLiteral("error"), QStringLiteral("grabForSoftTrigger failure"), QMessageBox::Yes);
+        std::exit(1);
+    }
+    try{
+        cv::imwrite("./grabPic/" + std::to_string(grabNum) + "/" + std::to_string(imageNum) + ".bmp", image[grabNum]);
+    }
+    catch (std::exception& e)
+    {
+        printf("save the grab image failure! (%s) \n", e.what());
+    }
+    ptrCommunicationToolProxy->setGrabFinishedFlag(true, grabNum);
+    emit oneImageProcess(image[grabNum], grabNum);
+    emit oneImageDispaly(grabNum);
 
-    //if (grabNum==11)
-    //{
-    //    imageNum++;
-    //    //等待处理结果并发送
-    //    emit readyToReply();
-    //}
+    if (grabNum==11)
+    {
+        imageNum++;
+        //等待处理结果并发送
+        emit readyToReply();
+    }
+    #endif
 
-
+    #ifdef TEST
     //无相机测试
     try
     {
-        image[grabNum] = cv::imread("./grabPic0825/" + std::to_string(grabNum) + "/2.jpg", cv::IMREAD_GRAYSCALE);
+        image[grabNum] = cv::imread("./grabPic0115/" + std::to_string(grabNum) + "/27.bmp", cv::IMREAD_GRAYSCALE);
     }
     catch (std::exception& e)
     {
@@ -217,6 +243,7 @@ void view::grab(int grabNum)
         //等待处理结果并发送
         emit readyToReply();
     }
+    #endif
 }
 
 void view::prepareToReply()
@@ -238,4 +265,6 @@ void view::prepareToReply()
     }
     s = s + "/**********************************************************************/\n";
     printf("%s \n",s.c_str());
+    ptrInfoBoard->append(s.c_str());
+    emit ptrInfoBoard->waitPrint();
 }

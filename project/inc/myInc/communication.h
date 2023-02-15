@@ -7,11 +7,15 @@
 #include "modbus.h"
 #include "myThreadPool.h"
 #include <atomic>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QApplication>
+#include <QMessageBox>
+#include "infoBoard.h"
 class modbusRtuMaster
 {
 public:
-    modbusRtuMaster(const int _id, const std::string& _comName, const int _baud, const char _parity, const int _dataBit, const int _stopBit, const int _testAddr):
-        id(_id),comName(_comName),baud(_baud),parity(_parity),dataBit(_dataBit),stopBit(_stopBit),testAddr(_testAddr)
+    modbusRtuMaster(const int _id, const std::string& _comName, const int _baud, const char _parity, const int _dataBit, const int _stopBit, const int _testAddr, std::shared_ptr<infoBoard> ptrInfoBoard):
+        id(_id),comName(_comName),baud(_baud),parity(_parity),dataBit(_dataBit),stopBit(_stopBit),testAddr(_testAddr), ptrInfoBoardForTool(ptrInfoBoard)
     {
         if (md_rtu == nullptr)
         {
@@ -58,6 +62,8 @@ private:
     const int stopBit;
     std::vector<unsigned short> readData;
     const int testAddr;
+
+    std::shared_ptr<infoBoard> ptrInfoBoardForTool;
 };
 
 
@@ -66,12 +72,12 @@ class communicationToolProxy :public QObject
 {
     Q_OBJECT
 public:
-    communicationToolProxy()
+    communicationToolProxy(std::shared_ptr<infoBoard> ptrInfoBoard):ptrInfoBoardForProxy(ptrInfoBoard)
     {
         if (tool == nullptr)
         {
             try {
-                tool = std::make_unique<modbusRtuMaster>(2, "COM1", 9600, 'N', 8, 1, 88-1);
+                tool = std::make_unique<modbusRtuMaster>(2, "COM1", 9600, 'N', 8, 1, 88-1, ptrInfoBoardForProxy);
                 //回环测试地址，使用与PLC约定的地址以外的地址
                 //地址都减一是因为表格地址和实际地址存在一位偏差
             }
@@ -84,6 +90,7 @@ public:
             if (!tool->modbusRtuMasterInit())
             {
                 printf("modbusRtuMasterInit Failure \n");
+                QMessageBox::critical(NULL, QStringLiteral("error"), QStringLiteral("modbusRtuMasterInit Failure"), QMessageBox::Yes);
                 std::exit(1);
             }
         }
@@ -119,6 +126,9 @@ private:
     std::atomic_bool testCompeleteFlag = false;
     std::atomic_bool isTaskRun = false;
     std::atomic_bool AllResultSetOne = false;
+
+    std::shared_ptr<infoBoard> ptrInfoBoardForProxy;
+
 signals:
     void toGrab(int);
 

@@ -41,6 +41,8 @@ project/lib/libtorch_lib/backup/*
 #忽略所有图片，大部分是运行时需要查看保存的图片
 *.bmp
 *.jpg
+*.zip
+*.7z
 # 忽略 .vs/ 目录下的所有文件
 .vs/
 

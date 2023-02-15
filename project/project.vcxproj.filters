@@ -60,6 +60,9 @@
     <QtMoc Include="inc\myInc\processControl.h">
       <Filter>inc</Filter>
     </QtMoc>
+    <QtMoc Include="inc\myInc\infoBoard.h">
+      <Filter>inc</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="view.ui">

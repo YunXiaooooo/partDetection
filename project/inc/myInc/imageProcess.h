@@ -53,6 +53,8 @@ private:
 	const struct boxCoordinates locationForROI { 1024 - 470, 1024 + 470, 1224 - 450, 1224 + 450 };
 
 	const double ratio = 420.0 / 434;
+	double distanceMin = 259;
+	double distanceMax = 279.5;
 	const int OTSU_threadNumMin = 30;//4个零件一起进行otsu二值化，如果阈值过低，认为4个孔位全部没有零件
 	const unsigned int deadNoPartHoleNum = 6000;//白点数量小于该值认为该位置没有零件
 	const double minDHoleArea = 150, maxDHoleArea = 700;//超过这个面积认为轮廓不可能位D形孔

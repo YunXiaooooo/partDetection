@@ -8,11 +8,15 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include "CameraDrive.h"
+#include "infoBoard.h"
 #include "processControl.h"
 #include "myTimer.h"
 #include "communication.h"
 #include<stack>
 #include <exception> 
+
+//#define TEST //用于本地无相机和虚拟串口模拟
+
 class view : public QMainWindow
 {
     Q_OBJECT
@@ -22,6 +26,7 @@ public:
 
 private:
     Ui::projectClass ui;
+    std::shared_ptr<infoBoard> ptrInfoBoard = nullptr;
     std::unique_ptr<CameraDrive> ptrMyCameras = nullptr;
     std::unique_ptr<processControl> ptrProcessControl = nullptr;
     std::shared_ptr<communicationToolProxy> ptrCommunicationToolProxy = nullptr;

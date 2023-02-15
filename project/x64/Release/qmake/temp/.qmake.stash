@@ -1,11 +1,13 @@
 QMAKE_CXX.QT_COMPILER_STDCXX = 199711L
 QMAKE_CXX.QMAKE_MSC_VER = 1929
-QMAKE_CXX.QMAKE_MSC_FULL_VER = 192930145
+QMAKE_CXX.QMAKE_MSC_FULL_VER = 192930133
 QMAKE_CXX.COMPILER_MACROS = \
     QT_COMPILER_STDCXX \
     QMAKE_MSC_VER \
     QMAKE_MSC_FULL_VER
 QMAKE_CXX.INCDIRS = \
+    .\\inc\\libtorchInc\\torch\\csrc\\api\\include \
+    .\\inc\\libtorchInc \
     .\\inc\\myQTInc \
     .\\inc\\threadpoolInc \
     .\\inc\\myInc \
@@ -24,6 +26,7 @@ QMAKE_CXX.INCDIRS = \
     "D:\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt" \
     Include\\um
 QMAKE_CXX.LIBDIRS = \
+    .\\lib\\libtorch_lib \
     .\\lib \
     "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\lib\\x64" \
     "D:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\lib\\x64" \
